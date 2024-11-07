@@ -1,5 +1,6 @@
 import React from "react";
 import Card from "../components/Card";
+import Club from "../components/Club";
 
 const Page = () => {
   return (
@@ -8,6 +9,7 @@ const Page = () => {
         <Card />
         <Card />
         <Card />
+        <Club />
       </div>
     </div>
   );
