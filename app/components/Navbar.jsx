@@ -52,20 +52,10 @@ const Navbar = () => {
             <Link href="/clubs">Clubs</Link>
           </li>
           <li>
-            <details>
-              <summary>Parent</summary>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </details>
+            <Link href="/studentDashboard">Dashboard</Link>
           </li>
           <li>
-            <a>Item 3</a>
+            <Link href="/about">About</Link>
           </li>
         </ul>
       </div>
