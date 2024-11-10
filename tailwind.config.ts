@@ -12,6 +12,8 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        customBlue1: '#4344FF',
+        customBlue2: '#A1F5FF',
       },
       keyframes: {
         scroll: {
