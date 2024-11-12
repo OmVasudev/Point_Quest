@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import EventCard from "@/app/components/EventCard";
+import EventCard from "@/app/_components/EventCard";
 
 const eventsData = [
   {
