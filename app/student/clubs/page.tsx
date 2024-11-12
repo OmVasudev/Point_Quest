@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import ClubCard from "../../components/ClubCard";
+import ClubCard from "../../_components/ClubCard";
 import logo from "@/app/icon.png";
 import Link from "next/link";
 
