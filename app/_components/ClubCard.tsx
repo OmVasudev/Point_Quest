@@ -22,14 +22,14 @@
 // }
 
 import React from "react";
-import Image from "next/image";
+// import Image from "next/image";
 import logo from "@/app/icon.png";
 
 // Define an interface for the club data
 interface ClubData {
   name: string;
-  tagline: string;
-  logo: string;
+  faculty: string;
+  image: string;
 }
 
 interface ClubCardProps {
@@ -40,19 +40,20 @@ const ClubCard: React.FC<ClubCardProps> = ({ club }) => {
   return (
     <div className="flex justify-center mb-6">
       <div className="card w-96 shadow-xl bg-gradient-to-r from-blue-500 to-blue-700 text-white">
-        <div className="flex justify-center mt-4">
-          <Image
-            src={logo}
-            // src={club.logo}
+        <div className="flex justify-center  mt-4">
+          <img
+            // src={logo}
+            src={club.image}
             alt={`${club.name} Logo`}
             width={150}
             height={150}
+            className="rounded-full"
           />
         </div>
 
         <div className="card-body items-center text-center">
           <h1 className="card-title">{club.name}</h1>
-          <p>{club.tagline}</p>
+          <p>Faculty Coordinator: {club.faculty}</p>
         </div>
       </div>
     </div>
