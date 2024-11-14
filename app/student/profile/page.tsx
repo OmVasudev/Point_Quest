@@ -30,7 +30,9 @@ const StudentProfile: React.FC<StudentProfileProps> = ({
       <h1 className="text-5xl  text-black absolute top-36 left-1/2 transform -translate-x-1/2">
         Student Profile
       </h1>
+
       <div className="bg-gradient-to-b from-customBlue1 to-customBlue2 shadow-lg rounded-3xl w-2/4 p-10">
+      
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 items-start mt-4 mr-2 ml-2">
           {/* Profile Picture and Points Section */}
           <div className="bg-white shadow-lg rounded-3xl flex flex-col md:col-span-2 items-center justify-between p-10 ">
