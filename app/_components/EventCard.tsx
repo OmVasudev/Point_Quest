@@ -29,7 +29,7 @@ const EventCard: React.FC<EventCardProps> = ({ data }) => {
         <figure>
           <img src={data.image} alt={data.name} />
         </figure>
-        <div className="card-body justify-center items-center">
+        <div className="card-body justify-center items-center text-black">
           <h2 className="card-title font-redressed ">{data.name}</h2>
           <p className="text-center">
             <strong>Deadline:</strong> {data.date}
@@ -38,7 +38,7 @@ const EventCard: React.FC<EventCardProps> = ({ data }) => {
             <div className="bg-secondary-600 text-white py-2 px-3 rounded-full text-xl font-bold animate-pulse">
               {data.points}
             </div>
-            <div className="text-xl font-semibold mt-2 px-2">
+            <div className="text-xl text-primary-800 font-semibold mt-2 px-2">
               Activity Points
             </div>
           </div>
@@ -67,13 +67,13 @@ const EventCard: React.FC<EventCardProps> = ({ data }) => {
                   <div className="bg-secondary-600 font-redressed text-white py-3 px-3 rounded-full text-4xl font-bold animate-pulse">
                     {data.points}
                   </div>
-                  <h1 className="text-xl font-redressed font-bold pt-4">
+                  <h1 className="text-xl text-black font-redressed font-bold pt-4">
                     Activity Points
                   </h1>
                 </div>
               </div>
 
-              <div className="w-2/3 pl-4">
+              <div className="w-2/3 pl-4 text-black">
                 <h2 className="text-2xl font-redressed font-bold mb-2">
                   {data.name}
                 </h2>
