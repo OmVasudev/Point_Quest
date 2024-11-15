@@ -74,6 +74,7 @@ import {
   updateStudentPoints,
 } from "../../_lib/data-service";
 import { Reddit_Sans } from "next/font/google";
+import { getStudent } from "@/app/_lib/data-service";
 
 const redditSans = Reddit_Sans({
   subsets: ["latin"],
@@ -105,14 +106,17 @@ export default async function Page() {
   // Update student's total points after calculating
   await updateStudentPoints(studentId, totalPoints);
 
+  const studentData = await getStudent(1);
+  console.log(studentData);
+
   // Fetching dynamic student data (this could be a real API call instead of hardcoded)
-  const studentData = {
-    name: "John Doe", // Fetch from API
-    id: "2GI21CS000", // Fetch from API
-    year: "3rd Year", // Fetch from API
-    department: "CSE", // Fetch from API
-    points: totalPoints, // Calculated above
-  };
+  // const studentData = {
+  //   name: "John Doe", // Fetch from API
+  //   id: "2GI21CS000", // Fetch from API
+  //   year: "3rd Year", // Fetch from API
+  //   department: "CSE", // Fetch from API
+  //   points: totalPoints, // Calculated above
+  // };
 
   return (
     <div
@@ -128,13 +132,15 @@ export default async function Page() {
           <div className="bg-gradient-to-r from-customBlue1 to-cyan-500 text-white p-5 rounded-2xl shadow-2xl flex flex-col md:col-span-5   ">
             <div className="grid grid-cols-1 md:grid-cols-2 items-start">
               <div className=" flex flex-col md:col-span-1 items-center justify-between ">
-                <h2 className="text-3xl font-bold">{studentData.name}</h2>
-                <p className="text-xl">{studentData.id}</p>
+                <h2 className="text-3xl font-bold">
+                  {studentData.firstName + " " + studentData.lastName}
+                </h2>
+                <p className="text-xl">{studentData.USN}</p>
               </div>
 
               <div className=" flex flex-col md:col-span-1 items-center justify-between ">
-                <p className="text-xl">{studentData.year}</p>
-                <p className="text-xl">{studentData.department}</p>
+                <p className="text-xl">{studentData.passingYear}</p>
+                <p className="text-xl">{studentData.branch}</p>
               </div>
             </div>
           </div>

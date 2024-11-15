@@ -31,9 +31,7 @@ export default async function Page() {
     <div className="flex flex-col items-center justify-center min-h-screen relative bg-white">
       <div className="grid grid-cols-3 gap-10 mb-9">
         {clubs.map((club, index) => (
-          <Link key={index} href="/student/clubs/club">
-            <ClubCard key={index} club={club} />
-          </Link>
+          <ClubCard key={index} club={club} />
         ))}
       </div>
     </div>
