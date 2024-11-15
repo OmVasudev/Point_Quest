@@ -41,7 +41,7 @@ export default async function page() {
   // console.log(events);
   return (
     <div className="flex flex-col items-center  justify-center relative bg-white">
-      <h1 className="text-4xl font-primary font-semibold py-6">
+      <h1 className="text-4xl text-black font-primary font-semibold py-6">
         Upcoming Events
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-9">

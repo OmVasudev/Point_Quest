@@ -109,60 +109,55 @@ export default async function Page() {
   const studentData = await getStudent(1);
   console.log(studentData);
 
-  // Fetching dynamic student data (this could be a real API call instead of hardcoded)
-  // const studentData = {
-  //   name: "John Doe", // Fetch from API
-  //   id: "2GI21CS000", // Fetch from API
-  //   year: "3rd Year", // Fetch from API
-  //   department: "CSE", // Fetch from API
-  //   points: totalPoints, // Calculated above
-  // };
-
   return (
     <div
-      className={`${redditSans.className}  bg-white min-h-screen flex items-center justify-center`}
+      className={`${redditSans.className} bg-white min-h-screen flex items-center justify-center`}
     >
-      <div className="bg-white w-3/5 pt-7 pb-7 p-10">
+      <div className="bg-white w-full lg:w-4/5 pt-7 pb-7 px-5 lg:px-10">
         {/* Title */}
-        <div className="text-5xl  text-black pb-10">Student Dashboard</div>
+        <div className="text-4xl lg:text-5xl text-black pb-5 lg:pb-10 text-center">
+          Student Dashboard
+        </div>
 
         {/* Top Cards Section */}
-        <div className="grid grid-cols-1 md:grid-cols-7 gap-10 items-start pt-5 pb-10 ">
+        <div className="grid grid-cols-1 lg:grid-cols-7 gap-5 lg:gap-10 items-start pt-5 pb-10">
           {/* Student Info Card */}
-          <div className="bg-gradient-to-r from-customBlue1 to-cyan-500 text-white p-5 rounded-2xl shadow-2xl flex flex-col md:col-span-5   ">
+          <div className="bg-gradient-to-r from-customBlue1 to-cyan-500 text-white p-5 rounded-2xl shadow-2xl flex flex-col lg:col-span-5">
             <div className="grid grid-cols-1 md:grid-cols-2 items-start">
-              <div className=" flex flex-col md:col-span-1 items-center justify-between ">
-                <h2 className="text-3xl font-bold">
+              <div className="flex flex-col items-center justify-between">
+                <h2 className="font-primary text-2xl lg:text-3xl font-bold">
                   {studentData.firstName + " " + studentData.lastName}
                 </h2>
-                <p className="text-xl">{studentData.USN}</p>
+                <p className="text-lg lg:text-xl">{studentData.USN}</p>
               </div>
 
-              <div className=" flex flex-col md:col-span-1 items-center justify-between ">
-                <p className="text-xl">{studentData.passingYear}</p>
-                <p className="text-xl">{studentData.branch}</p>
+              <div className="flex flex-col items-center justify-between">
+                <p className="text-lg lg:text-xl">{studentData.passingYear}</p>
+                <p className="text-lg lg:text-xl">{studentData.branch}</p>
               </div>
             </div>
           </div>
 
           {/* Activity Points Card */}
-          <div className="bg-gradient-to-l from-blue-700 to-cyan-500 text-white p-5 rounded-2xl shadow-2xl flex flex-col md:col-span-2 items-center justify-between ">
+          <div className="bg-gradient-to-l from-blue-700 to-cyan-500 text-white p-5 rounded-2xl shadow-2xl flex flex-col lg:col-span-2 items-center justify-between">
             <div className="flex flex-col items-center justify-center">
               <p>Total Activity Points Earned</p>
-              <h1 className="text-4xl font-bold ">{studentData.points}</h1>
+              <h1 className="text-3xl lg:text-4xl font-bold">
+                {studentData.points}
+              </h1>
             </div>
           </div>
         </div>
 
         {/* Bottom Card with Events Table */}
-        <div className="bg-blue-50 rounded-2xl shadow-2xl pt-7 pb-7 pr-10 pl-10 items-center justify-between">
-          <h3 className="text-black text-xl font-bold mb-4">
+        <div className="bg-blue-50 rounded-2xl shadow-2xl pt-7 pb-7 pr-5 lg:pr-10 pl-5 lg:pl-10">
+          <h3 className="text-black font-primary text-lg lg:text-xl font-bold mb-4">
             Participated Events:
           </h3>
           <div className="overflow-x-auto rounded-lg">
-            <table className="min-w-full table-auto ">
+            <table className="min-w-full table-auto">
               <thead>
-                <tr className="bg-blue-900  text-white text-center ">
+                <tr className="bg-blue-900 text-white text-center">
                   <th className="px-4 py-3 font-semibold">Club Name</th>
                   <th className="px-4 py-3 font-semibold">Activity Name</th>
                   <th className="px-4 py-3 font-semibold">Date</th>
@@ -173,20 +168,20 @@ export default async function Page() {
               <tbody>
                 {eventsWithClubs.map((item, index) =>
                   item && item.event ? (
-                    <tr key={index} className=" border-t text-center ">
-                      <td className=" text-black font-semibold px-4 py-3">
+                    <tr key={index} className="border-t text-center">
+                      <td className="text-black font-semibold px-4 py-3">
                         {item.club ? item.club.name : "Club not found"}
                       </td>
-                      <td className=" text-black px-4 py-3">
+                      <td className="text-black px-4 py-3">
                         {item.event.name}
                       </td>
-                      <td className=" text-black px-4 py-3">
+                      <td className="text-black px-4 py-3">
                         {item.event.date}
                       </td>
-                      <td className=" text-black px-4 py-3">
+                      <td className="text-black px-4 py-3">
                         {item.event.points}
                       </td>
-                      <td className=" text-black px-4 py-3">
+                      <td className="text-black px-4 py-3">
                         <a
                           href={item.event.link}
                           className="bg-blue-500 text-white px-3 py-1 rounded-2xl hover:bg-blue-800 transition"
