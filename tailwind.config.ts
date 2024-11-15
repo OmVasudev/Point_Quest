@@ -62,7 +62,8 @@ const config: Config = {
         scroll: "scroll 10s linear infinite",
       },
       fontFamily: {
-        redressed: ["Redressed", "cursive"],
+        primary: ['"Reddit Sans"', "sans-serif"],
+        secondary: ['"Redressed"', "cursive"],
       },
 
       images: {

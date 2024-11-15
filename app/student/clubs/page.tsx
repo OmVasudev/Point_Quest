@@ -29,7 +29,8 @@ export default async function Page() {
   // console.log(clubs);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen relative bg-white">
-      <div className="grid grid-cols-3 gap-10 mb-9">
+      <h1 className="text-4xl font-primary font-semibold py-4">Clubs</h1>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-9">
         {clubs.map((club, index) => (
           <ClubCard key={index} club={club} />
         ))}

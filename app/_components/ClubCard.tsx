@@ -38,7 +38,7 @@ interface ClubCardProps {
 
 const ClubCard: React.FC<ClubCardProps> = ({ club }) => {
   return (
-    <div className="flex justify-center mb-6">
+    <div className="flex justify-center md:mb-6 md:mx-4 mx-6">
       <div className="card w-96 shadow-2xl bg-gradient-to-r from-blue-700 to-cyan-500 text-white">
         <div className="flex justify-center  mt-8">
           <img
@@ -52,7 +52,7 @@ const ClubCard: React.FC<ClubCardProps> = ({ club }) => {
         </div>
 
         <div className="card-body items-center text-center">
-          <h1 className="text-2xl font-bold ">{club.name}</h1>
+          <h1 className="text-2xl font-primary font-bold ">{club.name}</h1>
           <p>
             <strong>Faculty Coordinator: </strong>
             {club.faculty}

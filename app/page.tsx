@@ -14,10 +14,10 @@ const redressed = Redressed({
   weight: ["400"], // Redressed is usually single-weight, so 400 is safe
 });
 
-const redditSans = Reddit_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"], // Define weights you need for different text elements
-});
+// const redditSans = Reddit_Sans({
+//   subsets: ["latin"],
+//   weight: ["400", "500", "700"], // Define weights you need for different text elements
+// });
 
 export default function Home() {
   // Array of logo objects with explicit types
@@ -36,14 +36,14 @@ export default function Home() {
       {/* Heading Section */}
       <div className="text-center m-32 z-10 relative">
         <h1
-          className={`${redressed.className} text-9xl bg-clip-text text-transparent bg-gradient-to-r from-[#0103FF] to-[#01E4FF]`}
+          className={`text-9xl bg-clip-text text-transparent bg-gradient-to-r from-[#0103FF] to-[#01E4FF]`}
         >
           Point Quest
         </h1>
-        <h2 className={`${redditSans.className} text-4xl font-medium mt-4 text-black`}>
+        <h2 className={` text-4xl font-medium mt-4 text-black`}>
           Engage, Track, Earn!
         </h2>
-        <p className={`${redditSans.className} p-6 text-3xl mt-2 text-black`}>
+        <p className={`$ p-6 text-3xl mt-2 text-black`}>
           Stay updated on all club activities in one place. <br />
           Easily manage events and track updates on any device.
         </p>

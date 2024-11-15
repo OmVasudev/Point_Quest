@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import Link from "next/link";
 
 // Define an interface for event data
 interface EventData {
@@ -35,7 +34,7 @@ const EventCard: React.FC<EventCardProps> = ({ data }) => {
             <strong>Deadline:</strong> {data.date}
           </p>
           <div className="flex justify-center mt-2">
-            <div className="bg-secondary-600 text-white py-2 px-3 rounded-full text-xl font-bold animate-pulse">
+            <div className="bg-secondary-700 text-white py-2 px-3 rounded-full text-xl font-bold animate-pulse">
               {data.points}
             </div>
             <div className="text-xl text-primary-800 font-semibold mt-2 px-2">
@@ -61,27 +60,33 @@ const EventCard: React.FC<EventCardProps> = ({ data }) => {
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-white w-11/12 max-w-2xl p-6 rounded-lg shadow-lg">
             <div className="flex">
-              <div className="w-1/3 pr-4">
-                <img src={data.image} alt={data.name} className="rounded-lg" />
-                <div className="mt-4 p-4 flex flex-col  justify-center items-center py-4">
-                  <div className="bg-secondary-600 font-redressed text-white py-3 px-3 rounded-full text-4xl font-bold animate-pulse">
-                    {data.points}
+              {/* {!isOpen && (
+                <div className="w-1/3 pr-4">
+                  <img
+                    src={data.image}
+                    alt={data.name}
+                    className="rounded-lg"
+                  />
+                  <div className="mt-4 p-4 flex flex-col  justify-center items-center py-4">
+                    <div className="bg-secondary-700 font-redressed text-white py-3 px-3 rounded-full text-4xl font-bold animate-pulse">
+                      {data.points}
+                    </div>
+                    <h1 className="text-xl text-black font-redressed font-bold pt-4">
+                      Activity Points
+                    </h1>
                   </div>
-                  <h1 className="text-xl text-black font-redressed font-bold pt-4">
-                    Activity Points
-                  </h1>
                 </div>
-              </div>
+              )} */}
 
-              <div className="w-2/3 pl-4 text-black">
+              <div className={`w-full md:pl-4 text-black`}>
                 <h2 className="text-2xl font-redressed font-bold mb-2">
                   {data.name}
                 </h2>
                 <p className="mb-4">{data.description}</p>
-                <p className="text-sm font-medium">
-                  <strong>Contact:</strong> <hr />
-                  {data.contact}
-                </p>
+                <div className="text-sm font-medium">
+                  <h1 className="text-xl">Contact:</h1>
+                  <p>{data.contact}</p>
+                </div>
                 <div className="flex justify-end mt-6 space-x-4">
                   <button
                     onClick={toggleDialog}
