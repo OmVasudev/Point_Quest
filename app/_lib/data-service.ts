@@ -161,3 +161,38 @@ export async function updateStudentTotalPoints(studentId: number) {
     console.error("Failed to update student points.");
   }
 }
+
+export async function updateStudent(
+  email: string,
+  updatedData: {
+    name?: string;
+    email?: string;
+    USN?: string;
+    phone?: string;
+    branch?: string;
+    points?: number;
+  }
+) {
+  const { data, error } = await supabase
+    .from("Student")
+    .update(updatedData)
+    .eq("email", email);
+
+  if (error) console.error(error);
+  return data;
+}
+
+export async function getStudentByMail(email: string) {
+  const { data, error } = await supabase
+    .from("Student")
+    .select("*")
+    .eq("email", email)
+    .single();
+
+  if (error) {
+    console.error("Error fetching student data:", error);
+    return null;
+  }
+
+  return data;
+}
