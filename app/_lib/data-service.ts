@@ -18,7 +18,7 @@ export async function getClubs() {
   const { data, error } = await supabase
     .from("Club")
     .select("id,name,faculty,president,techLead,image")
-    .order("name");
+    .order("id");
 
   if (error) {
     console.error(error);
@@ -45,7 +45,9 @@ export async function getEvent(id: number) {
 export async function getEvents() {
   const { data, error } = await supabase
     .from("Event")
-    .select("id,name,description,contact,link,points,image,isCompleted,date")
+    .select(
+      "id,name,clubId,description,contact,link,points,image,isCompleted,date"
+    )
     .order("name");
 
   if (error) {

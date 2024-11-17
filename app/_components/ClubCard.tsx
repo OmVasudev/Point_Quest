@@ -30,6 +30,7 @@ interface ClubData {
   name: string;
   faculty: string;
   image: string;
+  id: number;
 }
 
 interface ClubCardProps {
@@ -57,7 +58,7 @@ const ClubCard: React.FC<ClubCardProps> = ({ club }) => {
             <strong>Faculty Coordinator: </strong>
             {club.faculty}
           </p>
-          <Link className="w-full" href="/student/clubs/club">
+          <Link className="w-full" href={`/student/clubs/${club.id}`}>
             <button className=" bg-white w-full mt-4  text-accent-400 hover:text-accent-500 font-semibold py-2 px-4 rounded-lg">
               View Events
             </button>

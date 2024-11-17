@@ -1,7 +1,6 @@
 import React from "react";
 import ClubCard from "../../_components/ClubCard";
 
-import Link from "next/link";
 import { getClubs } from "@/app/_lib/data-service";
 // import { getClub } from "@/app/_lib/data-service";
 
@@ -26,10 +25,12 @@ import { getClubs } from "@/app/_lib/data-service";
 export default async function Page() {
   const clubs = await getClubs();
   // console.log("om v");
-  // console.log(clubs);
+  console.log(clubs);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen relative bg-white">
-      <h1 className="text-4xl text-black font-primary font-semibold py-4">Clubs</h1>
+      <h1 className="text-4xl text-black font-primary font-semibold py-4">
+        Clubs
+      </h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-9">
         {clubs.map((club, index) => (
           <ClubCard key={index} club={club} />
