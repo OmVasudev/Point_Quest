@@ -1,5 +1,7 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
+
 const Navbar = () => {
   return (
     <div className="navbar bg-base-100">
@@ -26,28 +28,36 @@ const Navbar = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             <li>
-              <a href="">Item 1</a>
+              <Link href="/student/clubs">Clubs</Link>
             </li>
             <li>
-              <a>Parent</a>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
+              <Link href="/student/studentDashboard">Dashboard</Link>
             </li>
             <li>
-              <a>Item 3</a>
+              <Link href="/about">About Us</Link>
+            </li>
+            <li>
+              <Link href="/contact">Contact Us</Link>
             </li>
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">Point Quest</a>
+
+        {/* Logo and Title */}
+        <Link href="/" className="flex items-center space-x-2">
+          <Image
+            src="/logo.png"
+            alt="Project Logo"
+            width={40}
+            height={40}
+            className="h-8 w-8 md:h-10 md:w-10"
+          />
+          <span className="font-secondary md:mx-6 text-2xl md:text-3xl bg-gradient-to-r from-[#0103FF] to-[#01E4FF] bg-clip-text text-transparent">
+            Point Quest
+          </span>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal px-1 pt-4">
           <li>
             <Link href="/student/clubs">Clubs</Link>
           </li>
@@ -55,12 +65,15 @@ const Navbar = () => {
             <Link href="/student/studentDashboard">Dashboard</Link>
           </li>
           <li>
-            <Link href="/about">About</Link>
+            <Link href="/about">About Us</Link>
+          </li>
+          <li>
+            <Link href="/contact">Contact Us</Link>
           </li>
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Logout</a>
+        <a className="btn">Sign in</a>
       </div>
     </div>
   );
