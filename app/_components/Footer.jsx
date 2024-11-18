@@ -4,7 +4,7 @@ import Image from "next/image";
 const Footer = () => {
   return (
     <div>
-      <footer className="footer bg-base-200 text-base-content p-10">
+      <footer className="footer bg-gray-100 text-black p-10">
         <aside>
           <h1 className="text-4xl bg-gradient-to-r from-[#0103FF] to-[#01E4FF] bg-clip-text text-transparent">
             Point Quest

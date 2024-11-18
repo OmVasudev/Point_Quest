@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Link from "next/link";
 
 // Define an interface for event data
 interface EventData {
@@ -7,6 +8,7 @@ interface EventData {
   contact?: string;
   description: string;
   image: string;
+  link: string;
   date: string;
   points: number;
 }
@@ -49,9 +51,11 @@ const EventCard: React.FC<EventCardProps> = ({ data }) => {
           >
             View Details
           </button>
-          <button className=" bg-accent-500  hover:bg-accent-400  text-white font-semibold py-2 px-4 rounded-lg">
-            Register
-          </button>
+          <Link href={data.link}>
+            <button className="bg-accent-500  hover:bg-accent-400 text-white font-semibold py-2 px-4 rounded-lg ">
+              Register
+            </button>
+          </Link>
         </div>
       </div>
 
@@ -94,9 +98,11 @@ const EventCard: React.FC<EventCardProps> = ({ data }) => {
                   >
                     Close
                   </button>
-                  <button className="bg-accent-500  hover:bg-accent-400 text-white font-semibold py-2 px-4 rounded-lg ">
-                    Register
-                  </button>
+                  <Link href={data.link}>
+                    <button className="bg-accent-500  hover:bg-accent-400 text-white font-semibold py-2 px-4 rounded-lg ">
+                      Register
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

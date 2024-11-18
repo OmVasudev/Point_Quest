@@ -17,7 +17,20 @@ export async function getClub(id: number) {
 export async function getClubs() {
   const { data, error } = await supabase
     .from("Club")
-    .select("id,name,faculty,president,techLead,image")
+    .select("id,name,faculty,president,techLead,image,category")
+    .order("id");
+
+  if (error) {
+    console.error(error);
+    throw new Error("Clubs could not be loaded");
+  }
+
+  return data;
+}
+export async function getClubNames() {
+  const { data, error } = await supabase
+    .from("Club")
+    .select("id,name")
     .order("id");
 
   if (error) {
@@ -196,5 +209,180 @@ export async function getStudentByMail(email: string) {
     return null;
   }
 
+  return data;
+}
+
+//om work space start here
+
+export async function addEvent(eventData: {
+  name: string;
+  description: string;
+  contact: string;
+  link: string;
+  points: number;
+  image: string;
+  clubId: number;
+  isCompleted: boolean;
+  date: string;
+}) {
+  const { data, error } = await supabase.from("Event").insert([eventData]);
+
+  if (error) {
+    console.error("Error adding new event:", error.message, error.details);
+    throw new Error("Failed to add new event");
+  }
+
+  return data;
+}
+
+// Function to update an existing event
+export async function updateEvent(
+  eventId: number,
+  updatedData: {
+    name?: string;
+    description?: string;
+    contact?: string;
+    link?: string;
+    points?: number;
+    image?: string;
+    clubId?: number;
+    isCompleted?: boolean;
+    date?: string;
+  }
+) {
+  const { data, error } = await supabase
+    .from("Event")
+    .update(updatedData)
+    .eq("id", eventId);
+
+  if (error) {
+    console.error("Error updating event:", error.message, error.details);
+    return null;
+  }
+
+  return data;
+}
+
+export async function addClub(clubData: {
+  id: number;
+  name: string;
+  faculty: string;
+  president: string;
+  techLead: string;
+  image: string;
+  category: string; // New field
+}) {
+  const { data, error } = await supabase.from("Club").insert([clubData]);
+
+  if (error) {
+    console.error("Error adding new club:", error.message, error.details);
+    throw new Error("Failed to add new club");
+  }
+
+  return data;
+}
+
+//update clubs info
+export async function updateClub(
+  clubId: number,
+  updatedData: {
+    name?: string;
+    faculty?: string;
+    president?: string;
+    techLead?: string;
+    image?: string;
+    category?: string;
+  }
+) {
+  const { data, error } = await supabase
+    .from("Club")
+    .update(updatedData)
+    .eq("id", clubId);
+
+  if (error) {
+    console.error("Error updating club information:", error);
+    return null;
+  }
+
+  return data;
+}
+
+export async function addBod(bodData: {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string; // Add the password field
+  phoneNo: string;
+  branch: string;
+  usn: string;
+  clubId: number;
+}) {
+  const { data, error } = await supabase.from("BOD").insert([bodData]);
+
+  if (error) {
+    console.error("Error adding new BOD:", error.message, error.details);
+    throw new Error("Failed to add new BOD");
+  }
+
+  return data;
+}
+
+// Function to update BOD information
+export async function updateBod(
+  bodId: number,
+  updatedData: {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    password?: string; // Add the password field (optional)
+    phoneNo?: string;
+    branch?: string;
+    usn?: string;
+    clubId?: number;
+  }
+) {
+  const { data, error } = await supabase
+    .from("BOD")
+    .update(updatedData)
+    .eq("id", bodId);
+
+  if (error) {
+    console.error("Error updating BOD information:", error);
+    return null;
+  }
+
+  return data;
+}
+
+// Function to get all BODs
+export async function getBods() {
+  const { data, error } = await supabase.from("BOD").select("*");
+
+  if (error) {
+    console.error("Error fetching BODs:", error.message, error.details);
+    throw new Error("Failed to fetch BODs");
+  }
+
+  return data;
+}
+
+export async function addStudent(studentData: {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  phoneNo: number;
+  branch: string;
+  USN: string;
+  points: number;
+  passingYear: number;
+}) {
+  const { data, error } = await supabase.from("Student").insert([studentData]);
+
+  if (error) {
+    console.error("Error adding student:", error.message);
+    throw new Error("Failed to add student record.");
+  }
   return data;
 }
