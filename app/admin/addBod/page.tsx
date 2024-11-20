@@ -254,180 +254,188 @@ const BodsPage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto mt-8 px-4 pb-6">
-      <h1 className="text-3xl text-center font-bold mb-4">BOD Management</h1>
+   
+      <div className="max-w-7xl mx-auto pt-8 px-4 pb-6">
+        <h1 className="text-3xl text-center font-bold mb-4 text-black">BOD Management</h1>
 
-      <button
-        className="mb-4 px-4 py-2 bg-gradient-to-t from-blue-700 to-cyan-500 text-white rounded-lg"
-        onClick={() => handleOpenForm("add")}
-      >
-        Add New BOD
-      </button>
+        <button
+          className="mb-4 px-4 py-2 bg-gradient-to-t from-blue-700 to-cyan-500 text-white rounded-lg"
+          onClick={() => handleOpenForm("add")}
+        >
+          Add New BOD
+        </button>
 
-      {message && <p className="text-center my-4">{message}</p>}
+        {message && <p className="text-center my-4">{message}</p>}
 
-      <table className="w-full border-collapse border border-gray-300">
-        <thead>
-          <tr className="bg-gray-200">
-            <th className="border border-gray-300 px-4 py-2">ID</th>
-            <th className="border border-gray-300 px-4 py-2">First Name</th>
-            <th className="border border-gray-300 px-4 py-2">Last Name</th>
-            <th className="border border-gray-300 px-4 py-2">Email</th>
-            <th className="border border-gray-300 px-4 py-2">Password</th>
-            <th className="border border-gray-300 px-4 py-2">Phone No</th>
-            <th className="border border-gray-300 px-4 py-2">Branch</th>
-            <th className="border border-gray-300 px-4 py-2">USN</th>
-            <th className="border border-gray-300 px-4 py-2">Club ID</th>
-            <th className="border border-gray-300 px-4 py-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {bods.map((bod) => (
-            <tr key={bod.id}>
-              <td className="border border-gray-300 px-4 py-2">{bod.id}</td>
-              <td className="border border-gray-300 px-4 py-2">
-                {bod.firstName}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">
-                {bod.lastName}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">{bod.email}</td>
-              <td className="border border-gray-300 px-4 py-2">
-                {bod.password}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">
-                {bod.phoneNo}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">{bod.branch}</td>
-              <td className="border border-gray-300 px-4 py-2">{bod.USN}</td>
-              <td className="border border-gray-300 px-4 py-2">{bod.clubId}</td>
-              <td className="border border-gray-300 px-4 py-2">
-                <button
-                  className="mr-2 px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-                  onClick={() => handleOpenForm("edit", bod)}
-                >
-                  Edit
-                </button>
-              </td>
+        <table className="text-black w-full border-collapse border border-gray-300">
+          <thead>
+            <tr className="bg-gray-200">
+              <th className="border border-gray-300 px-4 py-2">ID</th>
+              <th className="border border-gray-300 px-4 py-2">First Name</th>
+              <th className="border border-gray-300 px-4 py-2">Last Name</th>
+              <th className="border border-gray-300 px-4 py-2">Email</th>
+              <th className="border border-gray-300 px-4 py-2">Password</th>
+              <th className="border border-gray-300 px-4 py-2">Phone No</th>
+              <th className="border border-gray-300 px-4 py-2">Branch</th>
+              <th className="border border-gray-300 px-4 py-2">USN</th>
+              <th className="border border-gray-300 px-4 py-2">Club ID</th>
+              <th className="border border-gray-300 px-4 py-2">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {bods.map((bod) => (
+              <tr key={bod.id}>
+                <td className="border border-gray-300 px-4 py-2">{bod.id}</td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {bod.firstName}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {bod.lastName}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {bod.email}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {bod.password}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {bod.phoneNo}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {bod.branch}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">{bod.USN}</td>
+                <td className="border border-gray-300 px-4 py-2">
+                  {bod.clubId}
+                </td>
+                <td className="border border-gray-300 px-4 py-2">
+                  <button
+                    className="mr-2 px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                    onClick={() => handleOpenForm("edit", bod)}
+                  >
+                    Edit
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-      {formVisible && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-120">
-            <h2 className="text-xl font-bold mb-4">
-              {formType === "add" ? "Add New BOD" : "Edit BOD"}
-            </h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <input
-                  type="number"
-                  name="id"
-                  value={bodData.id}
-                  onChange={handleChange}
-                  placeholder="BOD ID"
-                  required
-                  disabled={formType === "edit"}
-                  className="w-full px-3 py-2 border rounded"
-                />
-                <input
-                  type="text"
-                  name="firstName"
-                  value={bodData.firstName}
-                  onChange={handleChange}
-                  placeholder="First Name"
-                  required
-                  className="w-full px-3 py-2 border rounded"
-                />
-                <input
-                  type="text"
-                  name="lastName"
-                  value={bodData.lastName}
-                  onChange={handleChange}
-                  placeholder="Last Name"
-                  required
-                  className="w-full px-3 py-2 border rounded"
-                />
-                <input
-                  type="email"
-                  name="email"
-                  value={bodData.email}
-                  onChange={handleChange}
-                  placeholder="Email"
-                  required
-                  className="w-full px-3 py-2 border rounded"
-                />
-                <input
-                  type="password"
-                  name="password"
-                  value={bodData.password}
-                  onChange={handleChange}
-                  placeholder="Password"
-                  required
-                  className="w-full px-3 py-2 border rounded"
-                />
-                <input
-                  type="text"
-                  name="phoneNo"
-                  value={bodData.phoneNo}
-                  onChange={handleChange}
-                  placeholder="Phone Number"
-                  required
-                  className="w-full px-3 py-2 border rounded"
-                />
-                <input
-                  type="text"
-                  name="branch"
-                  value={bodData.branch}
-                  onChange={handleChange}
-                  placeholder="Branch"
-                  required
-                  className="w-full px-3 py-2 border rounded"
-                />
-                <input
-                  type="text"
-                  name="USN"
-                  value={bodData.USN}
-                  onChange={handleChange}
-                  placeholder="USN"
-                  required
-                  className="w-full px-3 py-2 border rounded"
-                />
-                <input
-                  type="number"
-                  name="clubId"
-                  value={bodData.clubId}
-                  onChange={handleChange}
-                  placeholder="Club ID"
-                  required
-                  className="w-full px-3 py-2 border rounded"
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full px-4 py-2 bg-blue-600 text-white rounded"
-                disabled={loading}
-              >
-                {loading
-                  ? "Submitting..."
-                  : formType === "add"
-                  ? "Add BOD"
-                  : "Update BOD"}
-              </button>
-              <button
-                type="button"
-                onClick={handleCloseForm}
-                className="mt-2 w-full px-4 py-2 bg-gray-500 text-white rounded"
-              >
-                Cancel
-              </button>
-            </form>
+        {formVisible && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-120">
+              <h2 className="text-xl font-bold mb-4">
+                {formType === "add" ? "Add New BOD" : "Edit BOD"}
+              </h2>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <input
+                    type="number"
+                    name="id"
+                    value={bodData.id}
+                    onChange={handleChange}
+                    placeholder="BOD ID"
+                    required
+                    disabled={formType === "edit"}
+                    className="w-full px-3 py-2 border rounded"
+                  />
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={bodData.firstName}
+                    onChange={handleChange}
+                    placeholder="First Name"
+                    required
+                    className="w-full px-3 py-2 border rounded"
+                  />
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={bodData.lastName}
+                    onChange={handleChange}
+                    placeholder="Last Name"
+                    required
+                    className="w-full px-3 py-2 border rounded"
+                  />
+                  <input
+                    type="email"
+                    name="email"
+                    value={bodData.email}
+                    onChange={handleChange}
+                    placeholder="Email"
+                    required
+                    className="w-full px-3 py-2 border rounded"
+                  />
+                  <input
+                    type="password"
+                    name="password"
+                    value={bodData.password}
+                    onChange={handleChange}
+                    placeholder="Password"
+                    required
+                    className="w-full px-3 py-2 border rounded"
+                  />
+                  <input
+                    type="text"
+                    name="phoneNo"
+                    value={bodData.phoneNo}
+                    onChange={handleChange}
+                    placeholder="Phone Number"
+                    required
+                    className="w-full px-3 py-2 border rounded"
+                  />
+                  <input
+                    type="text"
+                    name="branch"
+                    value={bodData.branch}
+                    onChange={handleChange}
+                    placeholder="Branch"
+                    required
+                    className="w-full px-3 py-2 border rounded"
+                  />
+                  <input
+                    type="text"
+                    name="USN"
+                    value={bodData.USN}
+                    onChange={handleChange}
+                    placeholder="USN"
+                    required
+                    className="w-full px-3 py-2 border rounded"
+                  />
+                  <input
+                    type="number"
+                    name="clubId"
+                    value={bodData.clubId}
+                    onChange={handleChange}
+                    placeholder="Club ID"
+                    required
+                    className="w-full px-3 py-2 border rounded"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full px-4 py-2 bg-blue-600 text-white rounded"
+                  disabled={loading}
+                >
+                  {loading
+                    ? "Submitting..."
+                    : formType === "add"
+                    ? "Add BOD"
+                    : "Update BOD"}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleCloseForm}
+                  className="mt-2 w-full px-4 py-2 bg-gray-500 text-white rounded"
+                >
+                  Cancel
+                </button>
+              </form>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    
   );
 };
 
