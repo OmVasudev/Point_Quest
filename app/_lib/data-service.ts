@@ -59,7 +59,7 @@ export async function getEvents() {
   const { data, error } = await supabase
     .from("Event")
     .select(
-      "id,name,clubId,description,contact,link,points,image,isCompleted,date"
+      "id,name,clubId,description,contact,link,points,image,isCompleted,date",
     )
     .order("name");
 
@@ -131,7 +131,7 @@ export async function getParticipatedClub(clubId: number) {
 
 export async function updateStudentPoints(
   studentId: number,
-  newPoints: number
+  newPoints: number,
 ) {
   const { data, error } = await supabase
     .from("Student")
@@ -140,7 +140,7 @@ export async function updateStudentPoints(
 
   if (error) {
     console.error("Error updating student points:", error);
-    return null;
+    return "getting error while updating";
   }
 
   return data;
@@ -186,7 +186,7 @@ export async function updateStudent(
     phone?: string;
     branch?: string;
     points?: number;
-  }
+  },
 ) {
   const { data, error } = await supabase
     .from("Student")
@@ -248,7 +248,7 @@ export async function updateEvent(
     clubId?: number;
     isCompleted?: boolean;
     date?: string;
-  }
+  },
 ) {
   const { data, error } = await supabase
     .from("Event")
@@ -292,7 +292,7 @@ export async function updateClub(
     techLead?: string;
     image?: string;
     category?: string;
-  }
+  },
 ) {
   const { data, error } = await supabase
     .from("Club")
@@ -340,7 +340,7 @@ export async function updateBod(
     branch?: string;
     usn?: string;
     clubId?: number;
-  }
+  },
 ) {
   const { data, error } = await supabase
     .from("BOD")
