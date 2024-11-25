@@ -177,25 +177,25 @@ export async function updateStudentTotalPoints(studentId: number) {
   }
 }
 
-export async function updateStudent(
-  email: string,
-  updatedData: {
-    name?: string;
-    email?: string;
-    USN?: string;
-    phone?: string;
-    branch?: string;
-    points?: number;
-  },
-) {
-  const { data, error } = await supabase
-    .from("Student")
-    .update(updatedData)
-    .eq("email", email);
+// export async function updateStudent(
+//   email: string,
+//   updatedData: {
+//     name?: string;
+//     email?: string;
+//     USN?: string;
+//     phone?: string;
+//     branch?: string;
+//     points?: number;
+//   },
+// ) {
+//   const { data, error } = await supabase
+//     .from("Student")
+//     .update(updatedData)
+//     .eq("email", email);
 
-  if (error) console.error(error);
-  return data;
-}
+//   if (error) console.error(error);
+//   return data;
+// }
 
 export async function getStudentByMail(email: string) {
   const { data, error } = await supabase
@@ -254,11 +254,6 @@ export async function updateEvent(
     .from("Event")
     .update(updatedData)
     .eq("id", eventId);
-
-  if (error) {
-    console.error("Error updating event:", error.message, error.details);
-    return null;
-  }
 
   return data;
 }
@@ -384,5 +379,29 @@ export async function addStudent(studentData: {
     console.error("Error adding student:", error.message);
     throw new Error("Failed to add student record.");
   }
+  return data;
+}
+
+export async function updateStudent(
+  studentEmail: string,
+  updatedData: {
+    firstName?: string;
+    lastName?: string;
+    USN?: string;
+    phoneNo?: string;
+    branch?: string;
+    points?: number;
+  },
+) {
+  const { data, error } = await supabase
+    .from("students") // Replace with your actual table name
+    .update(updatedData)
+    .eq("email", studentEmail);
+
+  if (error) {
+    console.error("Error updating student information:", error);
+    return null;
+  }
+
   return data;
 }
