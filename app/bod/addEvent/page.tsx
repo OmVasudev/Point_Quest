@@ -80,7 +80,7 @@ const EventPage = () => {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value, type, checked } = e.target;
     setEventData({
@@ -113,26 +113,26 @@ const EventPage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto mt-8 px-4 pb-6">
-      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
+    <div className="mx-auto mt-8 max-w-7xl px-4 pb-6">
+      <h1 className="mb-6 text-center text-3xl font-bold text-gray-800">
         Event Management
       </h1>
 
       <button
-        className="mb-6 px-6 py-3 bg-gradient-to-t from-blue-700 to-cyan-500 text-white rounded-lg"
+        className="mb-6 rounded-lg bg-gradient-to-t from-blue-700 to-cyan-500 px-6 py-3 text-white"
         onClick={() => handleOpenForm("add")}
       >
         Add New Event
       </button>
 
-      {message && <p className="text-center text-green-600 my-4">{message}</p>}
+      {message && <p className="my-4 text-center text-green-600">{message}</p>}
 
       {/* Events Table */}
-      <div className="bg-white rounded-2xl shadow-lg p-6">
+      <div className="rounded-2xl bg-white p-6 shadow-lg">
         <div className="overflow-x-auto rounded-lg">
           <table className="min-w-full table-auto">
             <thead>
-              <tr className="bg-blue-900 text-white text-center">
+              <tr className="bg-blue-900 text-center text-white">
                 <th className="px-4 py-3 font-semibold">ID</th>
                 <th className="px-4 py-3 font-semibold">Name</th>
                 <th className="px-4 py-3 font-semibold">Contact</th>
@@ -143,15 +143,15 @@ const EventPage = () => {
             </thead>
             <tbody>
               {events.map((event) => (
-                <tr key={event.id} className="text-center border-t">
-                  <td className="text-black px-4 py-3">{event.id}</td>
-                  <td className="text-black px-4 py-3">{event.name}</td>
-                  <td className="text-black px-4 py-3">{event.contact}</td>
-                  <td className="text-black px-4 py-3">{event.points}</td>
-                  <td className="text-black px-4 py-3">{event.date}</td>
-                  <td className="text-black px-4 py-3">
+                <tr key={event.id} className="border-t text-center">
+                  <td className="px-4 py-3 text-black">{event.id}</td>
+                  <td className="px-4 py-3 text-black">{event.name}</td>
+                  <td className="px-4 py-3 text-black">{event.contact}</td>
+                  <td className="px-4 py-3 text-black">{event.points}</td>
+                  <td className="px-4 py-3 text-black">{event.date}</td>
+                  <td className="px-4 py-3 text-black">
                     <button
-                      className="px-4 py-2  bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                      className="rounded-lg bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
                       onClick={() => handleOpenForm("edit", event)}
                     >
                       Edit
@@ -167,8 +167,8 @@ const EventPage = () => {
       {/* Form Modal */}
       {formVisible && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-2xl shadow-lg w-160">
-            <h2 className="text-xl font-bold mb-4 text-gray-800">
+          <div className="w-160 rounded-2xl bg-white p-8 shadow-lg">
+            <h2 className="mb-4 text-xl font-bold text-gray-800">
               {formType === "add" ? "Add New Event" : "Edit Event"}
             </h2>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -182,7 +182,7 @@ const EventPage = () => {
                   placeholder="Event ID"
                   required
                   disabled={formType === "edit"}
-                  className="w-full px-4 py-2 border rounded-lg"
+                  className="w-full rounded-lg border px-4 py-2"
                 />
                 <input
                   type="text"
@@ -191,7 +191,7 @@ const EventPage = () => {
                   onChange={handleChange}
                   placeholder="Event Name"
                   required
-                  className="w-full px-4 py-2 border rounded-lg"
+                  className="w-full rounded-lg border px-4 py-2"
                 />
               </div>
 
@@ -203,7 +203,7 @@ const EventPage = () => {
                   onChange={handleChange}
                   placeholder="Event Description"
                   required
-                  className="w-full px-4 py-2 border rounded-lg"
+                  className="w-full rounded-lg border px-4 py-2"
                 />
                 <input
                   type="text"
@@ -212,7 +212,7 @@ const EventPage = () => {
                   onChange={handleChange}
                   placeholder="Contact"
                   required
-                  className="w-full px-4 py-2 border rounded-lg"
+                  className="w-full rounded-lg border px-4 py-2"
                 />
               </div>
 
@@ -224,7 +224,7 @@ const EventPage = () => {
                   value={eventData.link}
                   onChange={handleChange}
                   placeholder="Event Link"
-                  className="w-full px-4 py-2 border rounded-lg"
+                  className="w-full rounded-lg border px-4 py-2"
                 />
                 <input
                   type="number"
@@ -233,7 +233,7 @@ const EventPage = () => {
                   onChange={handleChange}
                   placeholder="Points"
                   required
-                  className="w-full px-4 py-2 border rounded-lg"
+                  className="w-full rounded-lg border px-4 py-2"
                 />
               </div>
 
@@ -244,7 +244,7 @@ const EventPage = () => {
                 value={eventData.image}
                 onChange={handleChange}
                 placeholder="Image URL"
-                className="w-full px-4 py-2 border rounded-lg"
+                className="w-full rounded-lg border px-4 py-2"
               />
 
               {/* Row 5 - Club Select and Completed Checkbox */}
@@ -254,7 +254,7 @@ const EventPage = () => {
                   value={eventData.clubId}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border rounded-lg"
+                  className="w-full rounded-lg border px-4 py-2"
                 >
                   {/* Dynamically populate the clubs */}
                   {clubNames.map((club) => (
@@ -282,28 +282,28 @@ const EventPage = () => {
                 value={eventData.date}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border rounded-lg"
+                className="w-full rounded-lg border px-4 py-2"
               />
 
               {/* Submit Button */}
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full px-4 py-2 text-white font-bold rounded-lg ${
+                className={`w-full rounded-lg px-4 py-2 font-bold text-white ${
                   loading ? "bg-gray-500" : "bg-blue-600 hover:bg-blue-700"
                 }`}
               >
                 {loading
                   ? "Processing..."
                   : formType === "add"
-                  ? "Add Event"
-                  : "Update Event"}
+                    ? "Add Event"
+                    : "Update Event"}
               </button>
 
               {/* Cancel Button */}
               <button
                 type="button"
-                className="w-full px-4 py-2 mt-2 text-gray-700 bg-gray-200 rounded-lg"
+                className="mt-2 w-full rounded-lg bg-gray-200 px-4 py-2 text-gray-700"
                 onClick={handleCloseForm}
               >
                 Cancel

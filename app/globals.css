@@ -19,6 +19,8 @@
 
 body {
   font-family: var(--font-primary);
+  background-color: white;
+  @apply bg-white;
 }
 
 h1,
