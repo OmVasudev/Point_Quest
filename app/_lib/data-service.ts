@@ -375,7 +375,6 @@ export async function addStudent(studentData: {
   phoneNo: number;
   branch: string;
   USN: string;
-  points: number;
   passingYear: number;
 }) {
   const { data, error } = await supabase.from("Student").insert([studentData]);
@@ -384,5 +383,19 @@ export async function addStudent(studentData: {
     console.error("Error adding student:", error.message);
     throw new Error("Failed to add student record.");
   }
+  return data;
+}
+
+export async function findStudent(usn: string) {
+  const { data, error } = await supabase
+    .from("Student")
+    .select("*")
+    .eq("USN", usn)
+    .single();
+
+  if (error) {
+    console.log("Failed to find student.");
+  }
+
   return data;
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import Logout from "../logout";
 
 const Navbar = () => {
   return (
@@ -73,9 +74,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <Link href="/login" className="btn">
-          Sign in
-        </Link>
+        <Logout />
       </div>
     </div>
   );
