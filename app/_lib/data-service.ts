@@ -255,6 +255,10 @@ export async function updateEvent(
     .update(updatedData)
     .eq("id", eventId);
 
+    if(error) {
+      console.log("Failed to update event",error);
+      return null;
+    }
   return data;
 }
 
@@ -390,6 +394,17 @@ export async function findStudent(usn: string) {
 
   if (error) {
     console.log("Failed to find student.");
+  }
+
+  return data;
+}
+
+export async function isBOD(usn:string) {
+  const {data,error}=await supabase.from("BOD").select("*").eq("USN",usn);
+
+  if(error) {
+    console.log("No BOD found");
+    return null;
   }
 
   return data;
