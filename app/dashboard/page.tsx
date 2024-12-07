@@ -1,11 +1,14 @@
-import React from "react";
+"use client";
 
-const page = () => {
+import DashboardWrapper from "../_components/DashboardWrapper";
+
+const DashboardPage = () => {
   return (
     <div>
-      <h1>General Dashboard</h1>
+      <h1>Dashboard Page</h1>
+      <DashboardWrapper />
     </div>
   );
 };
 
-export default page;
+export default DashboardPage;

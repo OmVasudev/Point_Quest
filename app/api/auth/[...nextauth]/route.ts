@@ -1,72 +1,72 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
-import { findStudent } from "@/app/_lib/data-service";
+import { findStudent } from "@/app/_lib/data-service"; // Replace with your actual import path
 
 const handler = NextAuth({
   session: {
     strategy: "jwt",
   },
-  pages:{
-    signIn:'/login'
+  pages: {
+    signIn: "/login", // Path to your login page
   },
   providers: [
     CredentialsProvider({
       credentials: {
-        firstName: {},
-        lastName: {},
-        email: {},
-        password: {},
-        phoneNo: {},
-        branch: {},
-        usn: {},
-        passingYear: {},
+        usn: { label: "USN", type: "text" },
+        password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
-        console.log("Starting authorization...");
+      async authorize(credentials) {
+        console.log("Authorize Credentials:", credentials);
 
-        // Validate USN
-        if (!credentials?.usn) {
-          console.error("USN is undefined");
+        // Validate credentials
+        if (!credentials?.usn || !credentials.password) {
+          console.error("Missing credentials");
           return null;
         }
 
-        // Fetch student from the database
-        console.log("Fetching student data...");
-        const response = await findStudent(credentials?.usn);
-        console.log("Student data received:", { response });
+        // Fetch user from the database
+        const user = await findStudent(credentials.usn);
+        console.log("Fetched User:", user);
+
+        if (!user || !user.password) {
+          console.error("Invalid USN or password not found");
+          return null;
+        }
 
         // Validate password
-        if (!credentials.password) {
-          console.error("Password is required");
+        const isValidPassword = await compare(credentials.password, user.password);
+        console.log("Password Valid:", isValidPassword);
+
+        if (!isValidPassword) {
+          console.error("Incorrect password");
           return null;
         }
 
-        if (!response || !response.password) {
-          console.error("Invalid student data or password not found");
-          return null;
-        }
-
-        // Check if the password is correct
-        const passwordCorrect = await compare(
-          credentials.password,
-          response.password
-        );
-        console.log("Password comparison result:", { passwordCorrect });
-
-        if (passwordCorrect) {
-          console.log("Authentication successful");
-          return {
-            id: response.id,
-            usn: response.USN,
-          };
-        } else {
-          console.log("Authentication failed");
-          return null;
-        }
+        // Return user object
+        return {
+          id: user.id.toString(),
+          name: user.firstName,
+          email: user.email,
+        };
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.sub = user.id; // Add user ID to token
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token?.sub) {
+        session.user = { ...session.user, id: token.sub }; // Add user ID to session
+      }
+      console.log("Session:", session);
+      return session;
+    },
+  },
 });
 
 export { handler as GET, handler as POST };
