@@ -240,3 +240,4 @@ const ClubsPage = () => {
 };
 
 export default ClubsPage;
+

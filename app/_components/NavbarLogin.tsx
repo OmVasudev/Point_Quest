@@ -1,9 +1,10 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Logout from "../logout";
+// import Logout from "../logout";
+// import SignupPage from "../signup/page";
 
-const Navbar = () => {
+const NavbarLogin = () => {
   return (
     <div className="navbar bg-white ">
       <div className="navbar-start">
@@ -28,12 +29,12 @@ const Navbar = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
-            <li>
+            {/* <li>
               <Link href="/student/clubs">Clubs</Link>
             </li>
             <li>
               <Link href="/student/studentDashboard">Dashboard</Link>
-            </li>
+            </li> */}
             <li>
               <Link href="/about">About Us</Link>
             </li>
@@ -60,12 +61,6 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 pt-4">
           <li>
-            <Link href="/student/clubs">Clubs</Link>
-          </li>
-          <li>
-            <Link href="/student/studentDashboard">Dashboard</Link>
-          </li>
-          <li>
             <Link href="/about">About Us</Link>
           </li>
           <li>
@@ -73,11 +68,16 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-      <div className="navbar-end hover:underline">
-        <Logout />
+       <div className="navbar-end">
+        <div className="hover:underline mr-6">
+          <Link href="/login">Login</Link>
+        </div>
+        <div className="hover:underline mr-2">
+          <Link href="/signup">Sign up</Link>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Navbar;
+export default NavbarLogin;
