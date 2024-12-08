@@ -1,6 +1,5 @@
-"use client";
 import React, { useState } from "react";
-import { getStudentByUsn, updatePoints } from "@/app/_lib/data-service";
+import { getStudentByUsn, updateStudent } from "./data-services";
 
 const Page: React.FC = () => {
   const [usn, setUsn] = useState("");
@@ -17,7 +16,7 @@ const Page: React.FC = () => {
     try {
       // Fetch the student by USN
       const student = await getStudentByUsn(usn);
-      console.log("myStud", student);
+
       if (!student) {
         setError("Student not found.");
         setLoading(false);
@@ -25,14 +24,11 @@ const Page: React.FC = () => {
       }
 
       // Calculate updated points
-      const updatedPoints = Number(student.points + points);
-      console.log(updatePoints);
+      const updatedPoints = student.points + points;
+
       // Update the student data
-      const data = await updatePoints({
-        id: student.id,
-        points: updatedPoints,
-      });
-      console.log("updated data", data);
+      await updateStudent({ id: student.id, points: updatedPoints });
+
       setSuccess("Points updated successfully.");
     } catch (err: any) {
       setError("An error occurred while updating points.");

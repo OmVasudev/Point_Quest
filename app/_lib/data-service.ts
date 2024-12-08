@@ -193,6 +193,20 @@ export async function updateStudent(
   if (error) console.error(error);
   return data;
 }
+export async function updatePoints(
+  id: number,
+  updatedData: {
+    points?: number;
+  },
+) {
+  const { data, error } = await supabase
+    .from("Student")
+    .update(updatedData)
+    .eq("id", id);
+
+  if (error) console.error(error);
+  return data;
+}
 
 export async function getStudentByMail(email: string) {
   const { data, error } = await supabase
@@ -209,6 +223,20 @@ export async function getStudentByMail(email: string) {
   return data;
 }
 
+export async function getStudentByUsn(USN: string) {
+  const { data, error } = await supabase
+    .from("Student")
+    .select("*")
+    .eq("USN", USN)
+    .single();
+
+  if (error) {
+    console.error("Error fetching student data:", error);
+    return null;
+  }
+
+  return data;
+}
 //om work space start here
 
 export async function addEvent(eventData: {
@@ -451,4 +479,18 @@ export async function addFeedBack(feedback: {
 
   console.log("Feedback saved successfully");
   return true; // Return true on success
+}
+
+export async function getBranches() {
+  const { data, error } = await supabase
+    .from("Branches")
+    .select("id,name")
+    .order("id");
+
+  if (error) {
+    console.error(error);
+    throw new Error("Branches could not be loaded");
+  }
+
+  return data;
 }
