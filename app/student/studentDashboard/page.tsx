@@ -7,6 +7,8 @@ import {
 } from "../../_lib/data-service";
 import { Reddit_Sans } from "next/font/google";
 import { getStudent } from "@/app/_lib/data-service";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 const redditSans = Reddit_Sans({
   subsets: ["latin"],
@@ -14,7 +16,8 @@ const redditSans = Reddit_Sans({
 });
 
 export default async function Page() {
-  const studentId = 1; // Assume this is dynamic and can come from props or context.
+  const session = await getServerSession(authOptions);
+  const studentId = Number(session?.user.id); // Assume this is dynamic and can come from props or context.
 
   const participations = await getParticipated(studentId);
 
@@ -38,14 +41,14 @@ export default async function Page() {
   // Update student's total points after calculating
   await updateStudentPoints(studentId, totalPoints);
 
-  const studentData = await getStudent(1);
-  console.log(studentData);
+  const studentData = await getStudent(studentId);
+  // console.log(studentData);
 
   return (
     <div
       className={`${redditSans.className} flex min-h-screen items-center justify-center bg-white`}
     >
-      <div className="w-full bg-white px-5 pb-7 pt-7 lg:w-4/5 lg:px-10">
+      <div className="w-full bg-white px-5 pb-7 lg:w-4/5 lg:px-10">
         {/* Title */}
         <div className="pb-5 text-center text-4xl text-black lg:pb-10 lg:text-5xl">
           Student Dashboard
@@ -138,79 +141,3 @@ export default async function Page() {
     </div>
   );
 }
-
-// "use client";
-// import React, { useState, useEffect } from "react";
-// import { SessionProvider } from "next-auth/react";
-// import { useSession } from "next-auth/react";
-// // import StudentProfileForm from "./useid";
-
-// import { getStudent } from "@/app/_lib/data-service";
-// import sDashboard from "./sdashboard";
-
-// const StudentProfileForm = ({ userId }) => {
-//   const [student, setStudent] = useState(null);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState("");
-
-//   // Fetch student data on component mount
-//   useEffect(() => {
-//     const fetchStudentData = async () => {
-//       try {
-//         const studentData = await getStudent(userId);
-//         setStudent(studentData);
-//       } catch (err) {
-//         setError("Failed to fetch student data");
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     if (userId) {
-//       fetchStudentData();
-//     }
-//   }, [userId]); // Only re-fetch when userId changes
-
-//   // If data is still loading, show loading message
-//   if (loading) {
-//     return <p>Loading student profile...</p>;
-//   }
-
-//   // If there is an error fetching data, display error message
-//   if (error) {
-//     return <p>{error}</p>;
-//   }
-
-//   return student ? <StudentProfileContent initialStudent={student} /> : null;
-// };
-
-// const Dashboard = () => {
-//   const { data: session } = useSession();
-
-//   // Check if the session data is available
-//   if (!session || !session.user) {
-//     return <p>You need to be logged in to view this content.</p>;
-//   }
-
-//   // Type assertion for `session.user` to access `id` safely
-//   const userId = session.user.id;
-
-//   // Print the user ID to the console
-//   console.log("User ID:", userId);
-
-//   return (
-//     <div>
-//       <sDashboard userId={userId} />{" "}
-//     </div>
-//   );
-// };
-
-// const DashboardWrapper = () => {
-//   return (
-//     <SessionProvider>
-//       <Dashboard />
-//     </SessionProvider>
-//   );
-// };
-
-// export default DashboardWrapper;

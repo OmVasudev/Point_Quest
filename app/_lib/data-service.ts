@@ -177,25 +177,22 @@ export async function updateStudentTotalPoints(studentId: number) {
   }
 }
 
-// export async function updateStudent(
-//   email: string,
-//   updatedData: {
-//     name?: string;
-//     email?: string;
-//     USN?: string;
-//     phone?: string;
-//     branch?: string;
-//     points?: number;
-//   },
-// ) {
-//   const { data, error } = await supabase
-//     .from("Student")
-//     .update(updatedData)
-//     .eq("email", email);
+export async function updateStudent(
+  id: number,
+  updatedData: {
+    firstName?: string;
+    lastName?: string;
+    phoneNo?: string;
+  },
+) {
+  const { data, error } = await supabase
+    .from("Student")
+    .update(updatedData)
+    .eq("id", id);
 
-//   if (error) console.error(error);
-//   return data;
-// }
+  if (error) console.error(error);
+  return data;
+}
 
 export async function getStudentByMail(email: string) {
   const { data, error } = await supabase
@@ -410,28 +407,48 @@ export async function findStudent(usn: string) {
 //   return data;
 // }
 
+// export async function addFeedBack(feedback: {
+//   name: string;
+//   email: string;
+//   message: string;
+// }) {
+//   const { data, error } = await supabase.from("Feedback").insert([feedback]);
+
+//   if (error) {
+//     console.log(
+//       "Error in adding feedback to database:",
+//       error.message,
+//       error.details,
+//     );
+//     return null; // Return null in case of error
+//   }
+
+//   // Check if data is valid and not empty
+//   if (!data) {
+//     console.log("No data returned after insert, something went wrong.");
+//     return null;
+//   }
+
+//   console.log("Feedback saved successfully:", data);
+//   return data; // Return the inserted data if successful
+// }
+
 export async function addFeedBack(feedback: {
   name: string;
   email: string;
   message: string;
 }) {
-  const { data, error } = await supabase.from("Feedback").insert([feedback]);
+  const { error } = await supabase.from("Feedback").insert([feedback]);
 
   if (error) {
-    console.log(
+    console.error(
       "Error in adding feedback to database:",
       error.message,
       error.details,
     );
-    return null; // Return null in case of error
+    return false;
   }
 
-  // Check if data is valid and not empty
-  if (!data) {
-    console.log("No data returned after insert, something went wrong.");
-    return null;
-  }
-
-  console.log("Feedback saved successfully:", data);
-  return data; // Return the inserted data if successful
+  console.log("Feedback saved successfully");
+  return true; // Return true on success
 }
