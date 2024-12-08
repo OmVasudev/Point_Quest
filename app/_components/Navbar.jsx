@@ -1,12 +1,13 @@
-"use client"
+"use client";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Logout from "../logout";
+import icon from "@/app/icon.png";
 
 const Navbar = () => {
   return (
-    <div className="navbar bg-white ">
+    <div className="navbar bg-white">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -27,7 +28,7 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
           >
             <li>
               <Link href="/student/clubs">Clubs</Link>
@@ -53,7 +54,7 @@ const Navbar = () => {
             height={40}
             className="h-8 w-8 md:h-10 md:w-10"
           />
-          <span className="font-secondary md:mx-6 text-2xl md:text-3xl bg-gradient-to-r from-[#0103FF] to-[#01E4FF] bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[#0103FF] to-[#01E4FF] bg-clip-text font-secondary text-2xl text-transparent md:mx-6 md:text-3xl">
             Point Quest
           </span>
         </Link>
@@ -74,7 +75,17 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-      <div className="navbar-end hover:underline">
+      <div className="navbar-end flex items-center space-x-4">
+        {/* Profile Button */}
+        <Link href="/student/profile" className="flex items-center space-x-2">
+          <Image
+            src={icon} // Replace with your profile picture URL or a placeholder image
+            alt="Profile"
+            width={40}
+            height={40}
+            className="rounded-full border border-gray-300"
+          />
+        </Link>
         <Logout />
       </div>
     </div>
