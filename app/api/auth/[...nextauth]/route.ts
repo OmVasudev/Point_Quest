@@ -1,9 +1,10 @@
-// import NextAuth from "next-auth";
+// import NextAuth, { NextAuthOptions, Session } from "next-auth";
 // import CredentialsProvider from "next-auth/providers/credentials";
 // import { compare } from "bcrypt";
 // import { findStudent } from "@/app/_lib/data-service"; // Replace with your actual import path
+// import { JWT } from "next-auth/jwt";
 
-// const handler = NextAuth({
+// export const authOptions: NextAuthOptions = {
 //   session: {
 //     strategy: "jwt",
 //   },
@@ -19,31 +20,26 @@
 //       async authorize(credentials) {
 //         console.log("Authorize Credentials:", credentials);
 
-//         // Validate credentials
 //         if (!credentials?.usn || !credentials.password) {
 //           console.error("Missing credentials");
 //           return null;
 //         }
 
-//         // Fetch user from the database
 //         const user = await findStudent(credentials.usn);
-//         console.log("Fetched User:", user);
-
 //         if (!user || !user.password) {
 //           console.error("Invalid USN or password not found");
 //           return null;
 //         }
 
-//         // Validate password
-//         const isValidPassword = await compare(credentials.password, user.password);
-//         console.log("Password Valid:", isValidPassword);
-
+//         const isValidPassword = await compare(
+//           credentials.password,
+//           user.password,
+//         );
 //         if (!isValidPassword) {
 //           console.error("Incorrect password");
 //           return null;
 //         }
 
-//         // Return user object
 //         return {
 //           id: user.id.toString(),
 //           name: user.firstName,
@@ -53,28 +49,29 @@
 //     }),
 //   ],
 //   callbacks: {
-//     async jwt({ token, user }) {
+//     async jwt({ token, user }: { token: JWT; user?: any }) {
 //       if (user) {
 //         token.sub = user.id; // Add user ID to token
 //       }
 //       return token;
 //     },
-//     async session({ session, token }) {
+//     async session({ session, token }: { session: Session; token: JWT }) {
 //       if (token?.sub) {
 //         session.user = { ...session.user, id: token.sub }; // Add user ID to session
 //       }
-//       console.log("Session:", session);
 //       return session;
 //     },
 //   },
-// });
+// };
+
+// const handler = NextAuth(authOptions);
 
 // export { handler as GET, handler as POST };
 
 import NextAuth, { NextAuthOptions, Session } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
-import { findStudent } from "@/app/_lib/data-service"; // Replace with your actual import path
+import { findStudent, findBod } from "@/app/_lib/data-service"; // Replace with your actual import paths
 import { JWT } from "next-auth/jwt";
 
 export const authOptions: NextAuthOptions = {
@@ -98,25 +95,39 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        const user = await findStudent(credentials.usn);
+        const { usn, password } = credentials;
+        let user, role;
+
+        // Try to find the user in the student table
+        user = await findStudent(usn);
+        if (user) {
+          role = "student";
+        } else {
+          // If not found, try in the BOD table
+          user = await findBod(usn);
+          if (user) {
+            role = "bod";
+          }
+        }
+
         if (!user || !user.password) {
-          console.error("Invalid USN or password not found");
+          console.error("Invalid USN or user not found");
           return null;
         }
 
-        const isValidPassword = await compare(
-          credentials.password,
-          user.password,
-        );
+        // Validate the password
+        const isValidPassword = await compare(password, user.password);
         if (!isValidPassword) {
           console.error("Incorrect password");
           return null;
         }
 
+        // Return user details with role
         return {
           id: user.id.toString(),
           name: user.firstName,
           email: user.email,
+          role,
         };
       },
     }),
@@ -125,12 +136,17 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }: { token: JWT; user?: any }) {
       if (user) {
         token.sub = user.id; // Add user ID to token
+        token.role = user.role; // Add user role to token
       }
       return token;
     },
     async session({ session, token }: { session: Session; token: JWT }) {
       if (token?.sub) {
-        session.user = { ...session.user, id: token.sub }; // Add user ID to session
+        session.user = {
+          ...session.user,
+          id: token.sub,
+          role: token.role, // Add role to session
+        };
       }
       return session;
     },

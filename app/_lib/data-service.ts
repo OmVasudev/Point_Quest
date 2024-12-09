@@ -424,42 +424,19 @@ export async function findStudent(usn: string) {
   return data;
 }
 
-// export async function isBOD(usn:string) {
-//   const {data,error}=await supabase.from("BOD").select("*").eq("USN",usn);
+export async function findBod(usn: string) {
+  const { data, error } = await supabase
+    .from("BOD")
+    .select("*")
+    .eq("USN", usn)
+    .single();
 
-//   if(error) {
-//     console.log("No BOD found");
-//     return null;
-//   }
+  if (error) {
+    console.log("Failed to find student.");
+  }
 
-//   return data;
-// }
-
-// export async function addFeedBack(feedback: {
-//   name: string;
-//   email: string;
-//   message: string;
-// }) {
-//   const { data, error } = await supabase.from("Feedback").insert([feedback]);
-
-//   if (error) {
-//     console.log(
-//       "Error in adding feedback to database:",
-//       error.message,
-//       error.details,
-//     );
-//     return null; // Return null in case of error
-//   }
-
-//   // Check if data is valid and not empty
-//   if (!data) {
-//     console.log("No data returned after insert, something went wrong.");
-//     return null;
-//   }
-
-//   console.log("Feedback saved successfully:", data);
-//   return data; // Return the inserted data if successful
-// }
+  return data;
+}
 
 export async function addFeedBack(feedback: {
   name: string;
