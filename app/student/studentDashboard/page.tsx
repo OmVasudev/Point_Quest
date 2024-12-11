@@ -1,9 +1,15 @@
 import React from "react";
 import {
-  getParticipated,
   getParticipatedEvent,
   getParticipatedClub,
   updateStudentPoints,
+  getParticipatedStudent,
+  getParticipatedBod,
+  getParticipatedAdmin,
+  updateBodPoints,
+  updateAdminPoints,
+  getBod,
+  getAdmin,
 } from "../../_lib/data-service";
 import { Reddit_Sans } from "next/font/google";
 import { getStudent } from "@/app/_lib/data-service";
@@ -17,9 +23,18 @@ const redditSans = Reddit_Sans({
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
-  const studentId = Number(session?.user.id); // Assume this is dynamic and can come from props or context.
-
-  const participations = await getParticipated(studentId);
+  const studentId = Number(session?.user.id);
+  const role = session?.user.role;
+  let participations;
+  if (role === "student") {
+    participations = await getParticipatedStudent(studentId);
+  }
+  if (role === "bod") {
+    participations = await getParticipatedBod(studentId);
+  }
+  if (role === "admin") {
+    participations = await getParticipatedAdmin(studentId);
+  }
 
   if (!participations || participations.length === 0) {
     return <div>No events found for this student.</div>;
@@ -38,10 +53,18 @@ export default async function Page() {
     }),
   );
 
-  // Update student's total points after calculating
-  await updateStudentPoints(studentId, totalPoints);
+  let studentData;
+  if (role === "student") {
+    await updateStudentPoints(studentId, totalPoints);
+    studentData = await getStudent(studentId);
+  } else if (role === "bod") {
+    await updateBodPoints(studentId, totalPoints);
+    studentData = await getBod(studentId);
+  } else {
+    await updateAdminPoints(studentId, totalPoints);
+    studentData = await getAdmin(studentId);
+  }
 
-  const studentData = await getStudent(studentId);
   // console.log(studentData);
 
   return (

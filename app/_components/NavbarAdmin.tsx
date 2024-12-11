@@ -31,10 +31,10 @@ const Navbar = () => {
             className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
           >
             <li>
-              <Link href="/bod/addEvent">Add Events</Link>
+              <Link href="/admin/addBod">Add Bod</Link>
             </li>
             <li>
-              <Link href="/bod/updatePoints">Update points</Link>
+              <Link href="/admin/addClub">Add clubs</Link>
             </li>
             <li>
               <Link href="/student/studentDashboard">Dashboard</Link>
@@ -65,10 +65,10 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 pt-4">
           <li>
-            <Link href="/bod/addEvent">Add Events</Link>
+            <Link href="/admin/addBod">Add Bod</Link>
           </li>
           <li>
-            <Link href="/bod/updatePoints">Update points</Link>
+            <Link href="/admin/addClub">Add Clubs</Link>
           </li>
           <li>
             <Link href="/student/clubs">Clubs</Link>

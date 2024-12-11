@@ -46,6 +46,7 @@ import Navbar from "./_components/Navbar";
 import Footer from "./_components/Footer";
 import NavbarLogin from "./_components/NavbarLogin";
 import NavbarBOD from "./_components/NavbarBOD"; // Import Navbar for BOD
+import NavbarAdmin from "./_components/NavbarAdmin";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"; // Import your auth options for server session
 
@@ -75,9 +76,12 @@ export default async function RootLayout({
   // Safely handle the role property
   const renderNavbar = () => {
     if (session.user.role === "bod") {
-      return <NavbarBOD />;
+      return <NavbarBOD />; // Navbar for BOD
+    } else if (session.user.role === "admin") {
+      return <NavbarAdmin />; // Navbar for Admin
+    } else {
+      return <Navbar />; // Default Navbar for other roles, e.g. student
     }
-    return <Navbar />;
   };
 
   return (

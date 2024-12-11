@@ -9,7 +9,6 @@ const ClubsPage = () => {
   const [formType, setFormType] = useState("add"); // 'add' or 'edit'
   const [selectedClub, setSelectedClub] = useState(null);
   const [clubData, setClubData] = useState({
-    id: 0,
     name: "",
     faculty: "",
     president: "",
@@ -33,7 +32,7 @@ const ClubsPage = () => {
     }
   };
 
-  const handleOpenForm = (type: "add" | "edit", club = null) => {
+  const handleOpenForm = (type, club = null) => {
     setFormType(type);
     setSelectedClub(club);
     setFormVisible(true);
@@ -41,7 +40,6 @@ const ClubsPage = () => {
       setClubData({ ...club });
     } else {
       setClubData({
-        id: 0,
         name: "",
         faculty: "",
         president: "",
@@ -57,12 +55,12 @@ const ClubsPage = () => {
     setMessage("");
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setClubData({ ...clubData, [name]: value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage("");
@@ -72,7 +70,7 @@ const ClubsPage = () => {
         await addClub(clubData);
         setMessage("Club added successfully!");
       } else if (formType === "edit") {
-        await updateClub(clubData.id, clubData);
+        await updateClub(selectedClub.id, clubData);
         setMessage("Club updated successfully!");
       }
       await fetchClubs();
@@ -86,27 +84,26 @@ const ClubsPage = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto mt-8 px-4 pb-6">
-      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
+    <div className="mx-auto mt-8 max-w-7xl px-4 pb-6">
+      <h1 className="mb-6 text-center text-3xl font-bold text-gray-800">
         Clubs Management
       </h1>
 
       <button
-        className="mb-6 px-6 py-3 bg-gradient-to-t from-blue-700 to-cyan-500 text-white rounded-lg"
+        className="mb-6 rounded-lg bg-gradient-to-t from-blue-700 to-cyan-500 px-6 py-3 text-white"
         onClick={() => handleOpenForm("add")}
       >
         Add New Club
       </button>
 
-      {message && <p className="text-center text-green-600 my-4">{message}</p>}
+      {message && <p className="my-4 text-center text-green-600">{message}</p>}
 
       {/* Clubs Table */}
-      <div className="bg-white rounded-2xl shadow-lg p-6">
+      <div className="rounded-2xl bg-white p-6 shadow-lg">
         <div className="overflow-x-auto rounded-lg">
           <table className="min-w-full table-auto">
             <thead>
-              <tr className="bg-blue-900 text-white text-center">
-                <th className="px-4 py-3 font-semibold">ID</th>
+              <tr className="bg-blue-900 text-center text-white">
                 <th className="px-4 py-3 font-semibold">Name</th>
                 <th className="px-4 py-3 font-semibold">Faculty</th>
                 <th className="px-4 py-3 font-semibold">President</th>
@@ -117,16 +114,15 @@ const ClubsPage = () => {
             </thead>
             <tbody>
               {clubs.map((club) => (
-                <tr key={club.id} className="text-center border-t">
-                  <td className="text-black px-4 py-3">{club.id}</td>
-                  <td className="text-black px-4 py-3">{club.name}</td>
-                  <td className="text-black px-4 py-3">{club.faculty}</td>
-                  <td className="text-black px-4 py-3">{club.president}</td>
-                  <td className="text-black px-4 py-3">{club.techLead}</td>
-                  <td className="text-black px-4 py-3">{club.category}</td>
-                  <td className="text-black px-4 py-3">
+                <tr key={club.id} className="border-t text-center">
+                  <td className="px-4 py-3 text-black">{club.name}</td>
+                  <td className="px-4 py-3 text-black">{club.faculty}</td>
+                  <td className="px-4 py-3 text-black">{club.president}</td>
+                  <td className="px-4 py-3 text-black">{club.techLead}</td>
+                  <td className="px-4 py-3 text-black">{club.category}</td>
+                  <td className="px-4 py-3 text-black">
                     <button
-                      className="px-4 py-2  bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                      className="rounded-lg bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
                       onClick={() => handleOpenForm("edit", club)}
                     >
                       Edit
@@ -142,21 +138,11 @@ const ClubsPage = () => {
       {/* Form Modal */}
       {formVisible && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-2xl shadow-lg w-96">
-            <h2 className="text-xl font-bold mb-4 text-gray-800">
+          <div className="w-96 rounded-2xl bg-white p-8 shadow-lg">
+            <h2 className="mb-4 text-xl font-bold text-gray-800">
               {formType === "add" ? "Add New Club" : "Edit Club"}
             </h2>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <input
-                type="number"
-                name="id"
-                value={clubData.id}
-                onChange={handleChange}
-                placeholder="Club ID"
-                required
-                disabled={formType === "edit"}
-                className="w-full px-4 py-2 border rounded-lg"
-              />
               <input
                 type="text"
                 name="name"
@@ -164,7 +150,7 @@ const ClubsPage = () => {
                 onChange={handleChange}
                 placeholder="Club Name"
                 required
-                className="w-full px-4 py-2 border rounded-lg"
+                className="w-full rounded-lg border px-4 py-2"
               />
               <input
                 type="text"
@@ -173,7 +159,7 @@ const ClubsPage = () => {
                 onChange={handleChange}
                 placeholder="Faculty"
                 required
-                className="w-full px-4 py-2 border rounded-lg"
+                className="w-full rounded-lg border px-4 py-2"
               />
               <input
                 type="text"
@@ -182,7 +168,7 @@ const ClubsPage = () => {
                 onChange={handleChange}
                 placeholder="President"
                 required
-                className="w-full px-4 py-2 border rounded-lg"
+                className="w-full rounded-lg border px-4 py-2"
               />
               <input
                 type="text"
@@ -191,7 +177,7 @@ const ClubsPage = () => {
                 onChange={handleChange}
                 placeholder="Tech Lead"
                 required
-                className="w-full px-4 py-2 border rounded-lg"
+                className="w-full rounded-lg border px-4 py-2"
               />
               <input
                 type="text"
@@ -200,7 +186,7 @@ const ClubsPage = () => {
                 onChange={handleChange}
                 placeholder="Image URL"
                 required
-                className="w-full px-4 py-2 border rounded-lg"
+                className="w-full rounded-lg border px-4 py-2"
               />
               <input
                 type="text"
@@ -209,24 +195,24 @@ const ClubsPage = () => {
                 onChange={handleChange}
                 placeholder="Category"
                 required
-                className="w-full px-4 py-2 border rounded-lg"
+                className="w-full rounded-lg border px-4 py-2"
               />
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full px-4 py-2 text-white font-bold rounded-lg ${
+                className={`w-full rounded-lg px-4 py-2 font-bold text-white ${
                   loading ? "bg-gray-500" : "bg-blue-600 hover:bg-blue-700"
                 }`}
               >
                 {loading
                   ? "Processing..."
                   : formType === "add"
-                  ? "Add Club"
-                  : "Update Club"}
+                    ? "Add Club"
+                    : "Update Club"}
               </button>
               <button
                 type="button"
-                className="w-full px-4 py-2 mt-2 text-gray-700 bg-gray-200 rounded-lg"
+                className="mt-2 w-full rounded-lg bg-gray-200 px-4 py-2 text-gray-700"
                 onClick={handleCloseForm}
               >
                 Cancel
@@ -240,4 +226,3 @@ const ClubsPage = () => {
 };
 
 export default ClubsPage;
-
