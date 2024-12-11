@@ -24,22 +24,23 @@
 // });
 
 // export default function Form({ branches }) {
+//   console.log(branches);
 //   const router = useRouter();
-//   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+//   const [errors, setErrors] = useState({});
 
-//   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+//   const handleSubmit = async (e) => {
 //     e.preventDefault();
 
 //     const formData = new FormData(e.currentTarget);
 //     const formValues = {
-//       firstName: formData.get("firstName") as string,
-//       lastName: formData.get("lastName") as string,
-//       email: formData.get("email") as string,
-//       password: formData.get("password") as string,
-//       phoneNo: formData.get("phoneNo") as string,
-//       branch: formData.get("branch") as string,
-//       usn: formData.get("usn") as string,
-//       passingYear: parseInt(formData.get("passingYear") as string, 10),
+//       firstName: formData.get("firstName"),
+//       lastName: formData.get("lastName"),
+//       email: formData.get("email"),
+//       password: formData.get("password"),
+//       phoneNo: formData.get("phoneNo"),
+//       branch: formData.get("branch"),
+//       usn: formData.get("usn"),
+//       passingYear: parseInt(formData.get("passingYear"), 10),
 //     };
 
 //     try {
@@ -54,7 +55,6 @@
 //         },
 //         body: JSON.stringify(formValues),
 //       });
-//       console.log({ response });
 
 //       if (response.ok) {
 //         router.push("/login");
@@ -62,7 +62,7 @@
 //     } catch (error) {
 //       if (error instanceof ZodError) {
 //         // Set validation errors in state
-//         const validationErrors: { [key: string]: string } = {};
+//         const validationErrors = {};
 //         error.errors.forEach((err) => {
 //           validationErrors[err.path[0]] = err.message;
 //         });
@@ -126,12 +126,23 @@
 //           />
 //           {errors.phoneNo && <p className="text-red-600">{errors.phoneNo}</p>}
 
-//           <input
-//             name="branch"
-//             className="w-full rounded-lg border px-4 py-2"
-//             type="text"
-//             placeholder="Branch"
-//           />
+//           {/* <select name="branch" className="w-full rounded-lg border px-4 py-2">
+//             <option value="">Select Branch</option>
+//             {branches.map((branch) => (
+//               <option key={branch} value={branch}>
+//                 {branch}
+//               </option>
+//             ))}
+//           </select> */}
+//           <select name="branch" className="w-full rounded-lg border px-4 py-2">
+//             <option value="">Select Branch</option>
+//             {branches.map((branch) => (
+//               <option key={branch.id} value={branch.name}>
+//                 {branch.name}
+//               </option>
+//             ))}
+//           </select>
+
 //           {errors.branch && <p className="text-red-600">{errors.branch}</p>}
 
 //           <input
@@ -163,11 +174,13 @@
 //     </div>
 //   );
 // }
+
 "use client";
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { z, ZodError } from "zod";
+import { CldUploadWidget } from "next-cloudinary"; // Import Cloudinary's Upload Widget
 
 // Create a Zod schema for form validation
 const formSchema = z.object({
@@ -181,38 +194,46 @@ const formSchema = z.object({
     .min(10, "Phone number must be at least 10 digits"),
   branch: z.string().min(1, "Branch is required"),
   usn: z.string().min(10, "USN is required and it should be of 10 letters"),
-  passingYear: z
-    .number()
-    .int()
-    .min(1900, "Invalid year")
-    .max(new Date().getFullYear() + 5, "Year must be realistic"),
+  profileImage: z.string().url().optional(), // Added validation for the image URL
 });
 
 export default function Form({ branches }) {
-  console.log(branches);
   const router = useRouter();
   const [errors, setErrors] = useState({});
+  const [formValues, setFormValues] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    phoneNo: "",
+    branch: "",
+    usn: "",
+    passingYear: "",
+    profileImage: "", // State for the image URL
+  });
+  const [isLoading, setIsLoading] = useState(false); // Loading state for form submission
+
+  // Handle Cloudinary image upload success
+  const handleImageUpload = (result) => {
+    if (result.event === "success") {
+      const imageUrl = result.info.secure_url;
+      setFormValues((prevState) => ({
+        ...prevState, // Spread the previous form values
+        profileImage: imageUrl, // Update only the profile image
+      }));
+    }
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent the page from reloading
 
-    const formData = new FormData(e.currentTarget);
-    const formValues = {
-      firstName: formData.get("firstName"),
-      lastName: formData.get("lastName"),
-      email: formData.get("email"),
-      password: formData.get("password"),
-      phoneNo: formData.get("phoneNo"),
-      branch: formData.get("branch"),
-      usn: formData.get("usn"),
-      passingYear: parseInt(formData.get("passingYear"), 10),
-    };
+    setIsLoading(true); // Set loading state to true
 
     try {
       // Validate the form data using Zod schema
       formSchema.parse(formValues);
 
-      // If validation succeeds, proceed with the form submission
+      // Proceed with form submission (sending data to your backend)
       const response = await fetch(`/api/auth/register`, {
         method: "POST",
         headers: {
@@ -222,7 +243,7 @@ export default function Form({ branches }) {
       });
 
       if (response.ok) {
-        router.push("/login");
+        router.push("/login"); // Redirect after successful submission
       }
     } catch (error) {
       if (error instanceof ZodError) {
@@ -233,7 +254,14 @@ export default function Form({ branches }) {
         });
         setErrors(validationErrors);
       }
+    } finally {
+      setIsLoading(false); // Reset loading state
     }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
   };
 
   return (
@@ -250,6 +278,8 @@ export default function Form({ branches }) {
                 className="w-full rounded-lg border px-4 py-2"
                 type="text"
                 placeholder="First Name"
+                value={formValues.firstName}
+                onChange={handleInputChange}
               />
               {errors.firstName && (
                 <p className="text-red-600">{errors.firstName}</p>
@@ -261,6 +291,8 @@ export default function Form({ branches }) {
                 className="w-full rounded-lg border px-4 py-2"
                 type="text"
                 placeholder="Last Name"
+                value={formValues.lastName}
+                onChange={handleInputChange}
               />
               {errors.lastName && (
                 <p className="text-red-600">{errors.lastName}</p>
@@ -272,6 +304,8 @@ export default function Form({ branches }) {
             className="w-full rounded-lg border px-4 py-2"
             type="email"
             placeholder="Email"
+            value={formValues.email}
+            onChange={handleInputChange}
           />
           {errors.email && <p className="text-red-600">{errors.email}</p>}
 
@@ -280,6 +314,8 @@ export default function Form({ branches }) {
             className="w-full rounded-lg border px-4 py-2"
             type="password"
             placeholder="Password"
+            value={formValues.password}
+            onChange={handleInputChange}
           />
           {errors.password && <p className="text-red-600">{errors.password}</p>}
 
@@ -288,18 +324,17 @@ export default function Form({ branches }) {
             className="w-full rounded-lg border px-4 py-2"
             type="number"
             placeholder="Phone Number"
+            value={formValues.phoneNo}
+            onChange={handleInputChange}
           />
           {errors.phoneNo && <p className="text-red-600">{errors.phoneNo}</p>}
 
-          {/* <select name="branch" className="w-full rounded-lg border px-4 py-2">
-            <option value="">Select Branch</option>
-            {branches.map((branch) => (
-              <option key={branch} value={branch}>
-                {branch}
-              </option>
-            ))}
-          </select> */}
-          <select name="branch" className="w-full rounded-lg border px-4 py-2">
+          <select
+            name="branch"
+            className="w-full rounded-lg border px-4 py-2"
+            value={formValues.branch}
+            onChange={handleInputChange}
+          >
             <option value="">Select Branch</option>
             {branches.map((branch) => (
               <option key={branch.id} value={branch.name}>
@@ -307,7 +342,6 @@ export default function Form({ branches }) {
               </option>
             ))}
           </select>
-
           {errors.branch && <p className="text-red-600">{errors.branch}</p>}
 
           <input
@@ -315,6 +349,8 @@ export default function Form({ branches }) {
             className="w-full rounded-lg border px-4 py-2"
             type="text"
             placeholder="USN"
+            value={formValues.usn}
+            onChange={handleInputChange}
           />
           {errors.usn && <p className="text-red-600">{errors.usn}</p>}
 
@@ -323,16 +359,46 @@ export default function Form({ branches }) {
             className="w-full rounded-lg border px-4 py-2"
             type="number"
             placeholder="Passing Year"
+            value={formValues.passingYear}
+            onChange={handleInputChange}
           />
           {errors.passingYear && (
             <p className="text-red-600">{errors.passingYear}</p>
           )}
 
+          {/* Cloudinary Upload Widget */}
+          <CldUploadWidget
+            uploadPreset="cgwiy7po" // Replace with your Cloudinary preset
+            onSuccess={handleImageUpload}
+          >
+            {({ open }) => (
+              <button
+                type="button"
+                className="w-full rounded-lg bg-blue-600 px-4 py-2 font-bold text-white transition hover:bg-blue-700"
+                onClick={() => open()}
+              >
+                Upload Profile Image
+              </button>
+            )}
+          </CldUploadWidget>
+
+          {/* Display the image preview */}
+          {formValues.profileImage && (
+            <div className="mt-2">
+              <img
+                src={formValues.profileImage}
+                alt="Uploaded profile"
+                className="h-24 w-24 rounded-full object-cover"
+              />
+            </div>
+          )}
+
           <button
             type="submit"
             className="w-full rounded-lg bg-blue-600 px-4 py-2 font-bold text-white transition hover:bg-blue-700"
+            disabled={isLoading}
           >
-            Sign Up
+            {isLoading ? "Signing Up..." : "Sign Up"}
           </button>
         </form>
       </div>

@@ -12,8 +12,8 @@ export async function POST(request: Request) {
       phoneNo,
       branch,
       usn,
-
       passingYear,
+      profileImage,
     } = await request.json();
     //validate email and password
     console.log({
@@ -25,6 +25,7 @@ export async function POST(request: Request) {
       branch,
       usn,
       passingYear,
+      profileImage,
     });
     const hashedPassword = await hash(password, 10);
 
@@ -37,6 +38,7 @@ export async function POST(request: Request) {
       branch: branch,
       USN: usn,
       passingYear: passingYear,
+      image: profileImage,
     };
 
     const response = await addStudent(studentData);

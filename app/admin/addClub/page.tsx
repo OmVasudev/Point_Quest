@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { addClub, getClubs, updateClub } from "@/app/_lib/data-service";
+import { CldUploadWidget } from "next-cloudinary"; // Cloudinary widget import
 
 const ClubsPage = () => {
   const [clubs, setClubs] = useState([]);
@@ -58,6 +59,11 @@ const ClubsPage = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setClubData({ ...clubData, [name]: value });
+  };
+
+  const handleImageUpload = (info) => {
+    const { secure_url } = info;
+    setClubData((prev) => ({ ...prev, image: secure_url })); // Set the image URL
   };
 
   const handleSubmit = async (e) => {
@@ -179,15 +185,25 @@ const ClubsPage = () => {
                 required
                 className="w-full rounded-lg border px-4 py-2"
               />
-              <input
-                type="text"
-                name="image"
-                value={clubData.image}
-                onChange={handleChange}
-                placeholder="Image URL"
-                required
-                className="w-full rounded-lg border px-4 py-2"
-              />
+
+              {/* Cloudinary Image Upload Widget */}
+              <div className="my-4">
+                <CldUploadWidget
+                  uploadPreset="cgwiy7po" // Replace with your Cloudinary preset
+                  onSuccess={({ info }) => handleImageUpload(info)} // Handle the image upload success
+                >
+                  {({ open }) => (
+                    <button
+                      type="button"
+                      onClick={() => open()}
+                      className="w-full rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+                    >
+                      Upload Club Image
+                    </button>
+                  )}
+                </CldUploadWidget>
+              </div>
+
               <input
                 type="text"
                 name="category"
@@ -197,6 +213,7 @@ const ClubsPage = () => {
                 required
                 className="w-full rounded-lg border px-4 py-2"
               />
+
               <button
                 type="submit"
                 disabled={loading}
