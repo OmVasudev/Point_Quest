@@ -480,6 +480,7 @@ export async function addStudent(studentData: {
   branch: string;
   USN: string;
   passingYear: number;
+  image: string;
 }) {
   const { data, error } = await supabase.from("Student").insert([studentData]);
 
