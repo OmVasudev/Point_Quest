@@ -70,8 +70,10 @@
 
 import NextAuth, { NextAuthOptions, Session } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { compare } from "bcrypt";
-import { findStudent, findBod } from "@/app/_lib/data-service"; // Replace with your actual import paths
+// import { compare } from "bcrypt";
+import bcrypt from "bcryptjs";
+
+import { findStudent, findBod, findAdmin } from "@/app/_lib/data-service"; // Replace with your actual import paths
 import { JWT } from "next-auth/jwt";
 
 export const authOptions: NextAuthOptions = {
@@ -107,6 +109,12 @@ export const authOptions: NextAuthOptions = {
           user = await findBod(usn);
           if (user) {
             role = "bod";
+          } else {
+            // If not found in BOD, try in the admin table
+            user = await findAdmin(usn);
+            if (user) {
+              role = "admin";
+            }
           }
         }
 
@@ -116,7 +124,7 @@ export const authOptions: NextAuthOptions = {
         }
 
         // Validate the password
-        const isValidPassword = await compare(password, user.password);
+        const isValidPassword = await bcrypt.compare(password, user.password);
         if (!isValidPassword) {
           console.error("Incorrect password");
           return null;
