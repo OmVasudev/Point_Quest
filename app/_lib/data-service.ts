@@ -576,3 +576,69 @@ export async function getClubName(id: number) {
   }
   return data;
 }
+
+export async function getClubByBod(bodId: number) {
+  const { data, error } = await supabase
+    .from("BOD")
+    .select("clubId")
+    .eq("id", bodId);
+
+  if (error) {
+    console.log("error in finding club by using bod");
+  }
+  return data;
+}
+
+export async function getEventByClub(clubId: number) {
+  const { data, error } = await supabase
+    .from("Event")
+    .select("id,name")
+    .eq("clubId", clubId);
+  if (error) {
+    console.log("error to access events associated with club");
+  }
+
+  return data;
+}
+
+export async function addParticipatedStudent(
+  studentId: number,
+  eventId: number,
+): Promise<boolean> {
+  const { error } = await supabase.from("Participated").insert([
+    { studentId, eventId }, // Specify the columns and values
+  ]);
+
+  if (error) {
+    console.error("Error inserting into Participated table:", error);
+    return false; // Return false if there's an error
+  }
+
+  return true; // Return true if insertion is successful
+}
+
+export async function addParticipatedBod(bodId: number, eventId: number) {
+  const { error } = await supabase.from("Participated").insert([
+    { bodId, eventId }, // Specify the columns and values
+  ]);
+
+  if (error) {
+    console.error("Error inserting into Participated table:", error);
+    return false; // or handle the error appropriately
+  }
+
+  return true; // Return the inserted data
+}
+
+export async function addParticipatedAdmin(adminId: number, eventId: number) {
+  const { error } = await supabase.from("Participated").insert([
+    { adminId, eventId }, // Specify the columns and values
+  ]);
+
+  if (error) {
+    console.error("Error inserting into Participated table:", error);
+    return false; // or handle the error appropriately
+  }
+
+  return true; // Return the inserted data
+}
