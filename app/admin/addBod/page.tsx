@@ -425,7 +425,7 @@ const BodsPage = () => {
 
   return (
     <div className="mx-auto max-w-7xl px-4 pb-6 pt-8">
-      <h1 className="mb-4 text-center text-3xl font-bold text-black">
+      <h1 className="mb-4 text-center text-3xl font-semibold text-black">
         BOD Management
       </h1>
 
@@ -438,7 +438,7 @@ const BodsPage = () => {
 
       {message && <p className="my-4 text-center">{message}</p>}
 
-      <table className="w-full border-collapse border border-gray-300 text-black">
+      <table className="mb-2 mt-2 w-full border-collapse border border-gray-300 text-center text-black">
         <thead>
           <tr className="bg-gray-200">
             <th className="border border-gray-300 px-4 py-2">First Name</th>
@@ -471,7 +471,7 @@ const BodsPage = () => {
               </td>
               <td className="border border-gray-300 px-4 py-2">
                 <button
-                  className="mr-2 rounded-lg bg-blue-600 px-3 py-1 text-white transition hover:bg-blue-700"
+                  className="mr-2 rounded-lg bg-blue-600 px-4 py-1 text-white transition hover:bg-blue-700"
                   onClick={() => handleOpenForm("edit", bod)}
                 >
                   Edit
@@ -484,8 +484,8 @@ const BodsPage = () => {
 
       {formVisible && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="w-120 rounded-lg bg-white p-6 shadow-lg">
-            <h2 className="mb-4 text-xl font-bold">
+          <div className="w-1/3 rounded-lg bg-white p-6 shadow-lg">
+            <h2 className="mb-4 text-center text-2xl font-bold text-gray-800">
               {formType === "add" ? "Add New BOD" : "Edit BOD"}
             </h2>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -497,7 +497,7 @@ const BodsPage = () => {
                   onChange={handleChange}
                   placeholder="First Name"
                   required
-                  className="w-full rounded border px-3 py-2"
+                  className="w-full rounded-lg border bg-gray-50 px-3 py-2 text-gray-700"
                 />
                 <input
                   type="text"
@@ -506,7 +506,7 @@ const BodsPage = () => {
                   onChange={handleChange}
                   placeholder="Last Name"
                   required
-                  className="w-full rounded border px-3 py-2"
+                  className="w-full rounded-lg border bg-gray-50 px-3 py-2 text-gray-700"
                 />
                 <input
                   type="email"
@@ -515,7 +515,7 @@ const BodsPage = () => {
                   onChange={handleChange}
                   placeholder="Email"
                   required
-                  className="w-full rounded border px-3 py-2"
+                  className="w-full rounded-lg border bg-gray-50 px-3 py-2 text-gray-700"
                 />
                 <input
                   type="password"
@@ -524,7 +524,7 @@ const BodsPage = () => {
                   onChange={handleChange}
                   placeholder="Password"
                   required
-                  className="w-full rounded border px-3 py-2"
+                  className="w-full rounded-lg border bg-gray-50 px-3 py-2 text-gray-700"
                 />
                 <input
                   type="text"
@@ -533,7 +533,7 @@ const BodsPage = () => {
                   onChange={handleChange}
                   placeholder="Phone Number"
                   required
-                  className="w-full rounded border px-3 py-2"
+                  className="w-full rounded-lg border bg-gray-50 px-3 py-2 text-gray-700"
                 />
                 <input
                   type="text"
@@ -542,7 +542,7 @@ const BodsPage = () => {
                   onChange={handleChange}
                   placeholder="Branch"
                   required
-                  className="w-full rounded border px-3 py-2"
+                  className="w-full rounded-lg border bg-gray-50 px-3 py-2 text-gray-700"
                 />
                 <input
                   type="text"
@@ -551,7 +551,7 @@ const BodsPage = () => {
                   onChange={handleChange}
                   placeholder="USN"
                   required
-                  className="w-full rounded border px-3 py-2"
+                  className="w-full rounded-lg border bg-gray-50 px-3 py-2 text-gray-700"
                 />
                 <input
                   type="text"
@@ -560,27 +560,28 @@ const BodsPage = () => {
                   onChange={handleChange}
                   placeholder="Passing Year"
                   required
-                  className="w-full rounded border px-3 py-2"
+                  className="w-full rounded-lg border bg-gray-50 px-3 py-2 text-gray-700"
                 />
-                {/* Dropdown for selecting the club */}
-                <select
-                  name="clubId"
-                  value={bodData.clubId}
-                  onChange={handleClubChange}
-                  required
-                  className="w-full rounded border px-3 py-2"
-                >
-                  <option value={0}>Select a Club</option>
-                  {clubNames.map((club) => (
-                    <option key={club.id} value={club.id}>
-                      {club.name}
-                    </option>
-                  ))}
-                </select>
               </div>
+              {/* Dropdown for selecting the club */}
+              <select
+                name="clubId"
+                value={bodData.clubId}
+                onChange={handleClubChange}
+                required
+                className="w-full rounded-lg border bg-gray-50 px-3 py-2 text-gray-700"
+              >
+                <option value={0}>Select a Club</option>
+                {clubNames.map((club) => (
+                  <option key={club.id} value={club.id}>
+                    {club.name}
+                  </option>
+                ))}
+              </select>
+
               <button
                 type="submit"
-                className="w-full rounded bg-blue-600 px-4 py-2 text-white"
+                className="w-full rounded-lg bg-blue-600 px-4 py-2 text-white"
                 disabled={loading}
               >
                 {loading
@@ -592,7 +593,7 @@ const BodsPage = () => {
               <button
                 type="button"
                 onClick={handleCloseForm}
-                className="mt-2 w-full rounded bg-gray-500 px-4 py-2 text-white"
+                className="mt-2 w-full rounded-lg bg-gray-500 px-4 py-2 text-white"
               >
                 Cancel
               </button>

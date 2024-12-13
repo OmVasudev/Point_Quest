@@ -144,8 +144,8 @@ const ClubsPage = () => {
       {/* Form Modal */}
       {formVisible && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="w-96 rounded-2xl bg-white p-8 shadow-lg">
-            <h2 className="mb-4 text-xl font-bold text-gray-800">
+          <div className="w-1/3 rounded-2xl bg-white p-8 shadow-lg">
+            <h2 className="mb-4 text-center text-2xl font-bold text-gray-800">
               {formType === "add" ? "Add New Club" : "Edit Club"}
             </h2>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -156,7 +156,7 @@ const ClubsPage = () => {
                 onChange={handleChange}
                 placeholder="Club Name"
                 required
-                className="w-full rounded-lg border px-4 py-2"
+                className="w-full rounded-lg border bg-white px-4 py-2 text-gray-700"
               />
               <input
                 type="text"
@@ -165,7 +165,7 @@ const ClubsPage = () => {
                 onChange={handleChange}
                 placeholder="Faculty"
                 required
-                className="w-full rounded-lg border px-4 py-2"
+                className="w-full rounded-lg border bg-white px-4 py-2 text-gray-700"
               />
               <input
                 type="text"
@@ -174,7 +174,7 @@ const ClubsPage = () => {
                 onChange={handleChange}
                 placeholder="President"
                 required
-                className="w-full rounded-lg border px-4 py-2"
+                className="w-full rounded-lg border bg-white px-4 py-2 text-gray-700"
               />
               <input
                 type="text"
@@ -183,7 +183,17 @@ const ClubsPage = () => {
                 onChange={handleChange}
                 placeholder="Tech Lead"
                 required
-                className="w-full rounded-lg border px-4 py-2"
+                className="w-full rounded-lg border bg-white px-4 py-2 text-gray-700"
+              />
+
+              <input
+                type="text"
+                name="category"
+                value={clubData.category}
+                onChange={handleChange}
+                placeholder="Category"
+                required
+                className="w-full rounded-lg border bg-white px-4 py-2 text-gray-700"
               />
 
               {/* Cloudinary Image Upload Widget */}
@@ -196,23 +206,13 @@ const ClubsPage = () => {
                     <button
                       type="button"
                       onClick={() => open()}
-                      className="w-full rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+                      className="w-full rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
                     >
                       Upload Club Image
                     </button>
                   )}
                 </CldUploadWidget>
               </div>
-
-              <input
-                type="text"
-                name="category"
-                value={clubData.category}
-                onChange={handleChange}
-                placeholder="Category"
-                required
-                className="w-full rounded-lg border px-4 py-2"
-              />
 
               <button
                 type="submit"

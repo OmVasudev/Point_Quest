@@ -149,80 +149,84 @@ const Page: React.FC = () => {
   };
 
   return (
-    <div className="mx-auto max-w-md p-4">
-      <h1 className="mb-4 text-2xl font-bold">Check USN and Add to Event</h1>
-      <div className="space-y-4">
-        <div>
-          <label
-            htmlFor="usn"
-            className="block text-sm font-medium text-gray-700"
-          >
-            USN
-          </label>
-          <input
-            type="text"
-            id="usn"
-            value={usn}
-            onChange={(e) => {
-              setUsn(e.target.value);
-              setValidUser(false); // Reset validUser on input change
-            }}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            required
-          />
-        </div>
-        <button
-          onClick={handleCheckUSN}
-          className="w-full rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          disabled={loading}
-        >
-          {loading ? "Checking..." : "Check USN"}
-        </button>
-        {success && <p className="mt-4 text-green-500">{success}</p>}
-        {error && <p className="mt-4 text-red-500">{error}</p>}
-      </div>
-
-      {validUser && (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleUpdate();
-          }}
-          className="mt-4 space-y-4"
-        >
+    <div>
+      <h1 className="m-6 text-center font-primary text-3xl font-semibold text-black">
+        Check USN and Add to Event
+      </h1>
+      <div className="m-8 mx-auto max-w-lg rounded-xl border  p-6 shadow-lg">
+        <div className="space-y-4">
           <div>
             <label
-              htmlFor="event"
-              className="block text-sm font-medium text-gray-700"
+              htmlFor="usn"
+              className="block text-xl font-medium text-gray-700"
             >
-              Event
+              USN
             </label>
-            <select
-              id="event"
-              value={selectedEvent || ""}
-              onChange={(e) => setSelectedEvent(Number(e.target.value))}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            <input
+              type="text"
+              id="usn"
+              value={usn}
+              onChange={(e) => {
+                setUsn(e.target.value);
+                setValidUser(false); // Reset validUser on input change
+              }}
+              className="mt-1 block w-full rounded-md border bg-white p-3 text-gray-700 shadow-lg focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               required
-            >
-              <option value="" disabled>
-                Select an event
-              </option>
-              {events.map((event) => (
-                <option key={event.id} value={event.id}>
-                  {event.name}
-                </option>
-              ))}
-            </select>
+            />
           </div>
           <button
-            type="submit"
-            className="w-full rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            onClick={handleCheckUSN}
+            className="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             disabled={loading}
           >
-            {loading ? "Adding..." : "Add to Event"}
+            {loading ? "Checking..." : "Check USN"}
           </button>
-        </form>
-      )}
+          {success && <p className="mt-4 text-green-500">{success}</p>}
+          {error && <p className="mt-4 text-red-500">{error}</p>}
+        </div>
+
+        {validUser && (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleUpdate();
+            }}
+            className="mt-4 space-y-4"
+          >
+            <div>
+              <label
+                htmlFor="event"
+                className="block text-xl font-medium text-gray-700"
+              >
+                Event
+              </label>
+              <select
+                id="event"
+                value={selectedEvent || ""}
+                onChange={(e) => setSelectedEvent(Number(e.target.value))}
+                className="mt-1 block w-full rounded-md border bg-white p-3 text-gray-700 shadow-lg focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                required
+              >
+                <option value="" disabled>
+                  Select an event
+                </option>
+                {events.map((event) => (
+                  <option key={event.id} value={event.id}>
+                    {event.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <button
+              type="submit"
+              className="w-full rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              disabled={loading}
+            >
+              {loading ? "Adding..." : "Add to Event"}
+            </button>
+          </form>
+        )}
+      </div>
     </div>
   );
 };

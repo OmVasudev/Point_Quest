@@ -82,7 +82,7 @@
 //             <div className="w-1/2">
 //               <input
 //                 name="firstName"
-//                 className="w-full rounded-lg border px-4 py-2"
+//                 className="w-full rounded-lg border bg-gray-50 px-4 py-2 text-gray-700"
 //                 type="text"
 //                 placeholder="First Name"
 //               />
@@ -265,9 +265,9 @@ export default function Form({ branches }) {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="w-full max-w-lg rounded-lg bg-white p-8 shadow-md">
-        <h1 className="mb-6 text-center text-2xl font-bold text-gray-800">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-50 via-white to-gray-100">
+      <div className="m-4 w-full max-w-lg rounded-lg border border-gray-100 bg-white p-8 shadow-xl">
+        <h1 className="mb-6 text-center text-3xl font-semibold text-gray-800">
           Sign Up
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -275,7 +275,7 @@ export default function Form({ branches }) {
             <div className="w-1/2">
               <input
                 name="firstName"
-                className="w-full rounded-lg border px-4 py-2"
+                className="w-full rounded-lg border bg-gray-50 px-4 py-2 text-gray-700"
                 type="text"
                 placeholder="First Name"
                 value={formValues.firstName}
@@ -288,7 +288,7 @@ export default function Form({ branches }) {
             <div className="w-1/2">
               <input
                 name="lastName"
-                className="w-full rounded-lg border px-4 py-2"
+                className="w-full rounded-lg border bg-gray-50 px-4 py-2 text-gray-700"
                 type="text"
                 placeholder="Last Name"
                 value={formValues.lastName}
@@ -301,7 +301,7 @@ export default function Form({ branches }) {
           </div>
           <input
             name="email"
-            className="w-full rounded-lg border px-4 py-2"
+            className="w-full rounded-lg border bg-gray-50 px-4 py-2 text-gray-700"
             type="email"
             placeholder="Email"
             value={formValues.email}
@@ -311,7 +311,7 @@ export default function Form({ branches }) {
 
           <input
             name="password"
-            className="w-full rounded-lg border px-4 py-2"
+            className="w-full rounded-lg border bg-gray-50 px-4 py-2 text-gray-700"
             type="password"
             placeholder="Password"
             value={formValues.password}
@@ -321,7 +321,7 @@ export default function Form({ branches }) {
 
           <input
             name="phoneNo"
-            className="w-full rounded-lg border px-4 py-2"
+            className="w-full rounded-lg border bg-gray-50 px-4 py-2 text-gray-700"
             type="number"
             placeholder="Phone Number"
             value={formValues.phoneNo}
@@ -331,7 +331,7 @@ export default function Form({ branches }) {
 
           <select
             name="branch"
-            className="w-full rounded-lg border px-4 py-2"
+            className="w-full rounded-lg border bg-gray-50 px-4 py-2 text-gray-700"
             value={formValues.branch}
             onChange={handleInputChange}
           >
@@ -346,7 +346,7 @@ export default function Form({ branches }) {
 
           <input
             name="usn"
-            className="w-full rounded-lg border px-4 py-2"
+            className="w-full rounded-lg border bg-gray-50 px-4 py-2 text-gray-700"
             type="text"
             placeholder="USN"
             value={formValues.usn}
@@ -356,7 +356,7 @@ export default function Form({ branches }) {
 
           <input
             name="passingYear"
-            className="w-full rounded-lg border px-4 py-2"
+            className="w-full rounded-lg border bg-gray-50 px-4 py-2 text-gray-700"
             type="number"
             placeholder="Passing Year"
             value={formValues.passingYear}
@@ -374,7 +374,7 @@ export default function Form({ branches }) {
             {({ open }) => (
               <button
                 type="button"
-                className="w-full rounded-lg bg-blue-600 px-4 py-2 font-bold text-white transition hover:bg-blue-700"
+                className="w-full rounded-lg bg-blue-500 px-4 py-2 font-bold text-white transition hover:bg-blue-700"
                 onClick={() => open()}
               >
                 Upload Profile Image

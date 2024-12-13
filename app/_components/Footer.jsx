@@ -4,9 +4,9 @@ import Image from "next/image";
 const Footer = () => {
   return (
     <div>
-      <footer className="footer bg-gray-100 text-black p-10">
+      <footer className="footer bg-gray-100 p-10 text-black">
         <aside>
-          <h1 className="text-4xl bg-gradient-to-r from-[#0103FF] to-[#01E4FF] bg-clip-text text-transparent">
+          <h1 className="bg-gradient-to-r from-[#0103FF] to-[#01E4FF] bg-clip-text text-4xl text-transparent">
             Point Quest
           </h1>
           <h3 className="text-2xl">Engage, Track, Achieve!</h3>
@@ -16,25 +16,25 @@ const Footer = () => {
           </p>
         </aside>
         <nav>
-          <h6 className="footer-title">Features</h6>
-          <a className="link link-hover">Event Management</a>
-          <a className="link link-hover">Club Collaboration</a>
-          <a className="link link-hover">Activity Tracking</a>
+          <h6 className="font-bold">Features</h6>
+          <a className="link-hover link">Event Management</a>
+          <a className="link-hover link">Club Collaboration</a>
+          <a className="link-hover link">Activity Tracking</a>
         </nav>
         <nav>
-          <h6 className="footer-title">Resources</h6>
-          <a className="link link-hover">User Guide</a>
-          <a className="link link-hover">Support</a>
-          <a className="link link-hover">FAQs</a>
+          <h6 className="font-bold">Resources</h6>
+          <a className="link-hover link">User Guide</a>
+          <a className="link-hover link">Support</a>
+          <a className="link-hover link">FAQs</a>
         </nav>
         <nav>
-          <h6 className="footer-title">Connect</h6>
-          <a className="link link-hover">About Us</a>
-          <a className="link link-hover">Contact</a>
-          <a className="link link-hover">Feedback</a>
+          <h6 className="font-bold">Connect</h6>
+          <a className="link-hover link">About Us</a>
+          <a className="link-hover link">Contact</a>
+          <a className="link-hover link">Feedback</a>
         </nav>
       </footer>
-      <div className="bg-base-200 text-center py-4">
+      <div className="bg-blue-950 py-4 text-center">
         <p className="text-sm">
           &copy; {new Date().getFullYear()} Point Quest. All Rights Reserved.
         </p>

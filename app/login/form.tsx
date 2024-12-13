@@ -57,7 +57,6 @@
 
 // </form>
 
-
 //   );
 // }
 
@@ -122,40 +121,46 @@ export default function Form() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md mx-auto mt-10 flex flex-col gap-4"
+      className="mx-auto mt-10 mb-10 flex w-full max-w-md flex-col gap-4 rounded-lg bg-white p-8 shadow-lg"
     >
-      <h1 className="text-3xl font-bold text-center text-gray-800 mb-4">
+      <h1 className="mb-4 text-center text-3xl font-bold text-gray-800">
         Login
       </h1>
       <div>
         <input
           name="usn"
-          className={`w-full px-4 py-2 border rounded-lg focus:ring-2 ${
-            errors.usn ? "focus:ring-red-500 border-red-500" : "focus:ring-blue-500"
+          className={`w-full rounded-lg border bg-gray-50 px-4 py-2 text-slate-700 hover:bg-gray-100 focus:ring-2 ${
+            errors.usn
+              ? "border-red-500 focus:ring-red-500"
+              : "focus:ring-blue-500"
           } focus:outline-none`}
           type="text"
           placeholder="USN"
         />
-        {errors.usn && <p className="text-red-500 text-sm">{errors.usn}</p>}
+        {errors.usn && <p className="text-sm text-red-500">{errors.usn}</p>}
       </div>
       <div>
         <input
           name="password"
-          className={`w-full px-4 py-2 border rounded-lg focus:ring-2 ${
-            errors.password ? "focus:ring-red-500 border-red-500" : "focus:ring-blue-500"
+          className={`w-full rounded-lg border bg-gray-50 px-4 py-2 text-slate-700 hover:bg-gray-100 focus:ring-2 ${
+            errors.password
+              ? "border-red-500 focus:ring-red-500"
+              : "focus:ring-blue-500"
           } focus:outline-none`}
           type="password"
           placeholder="Password"
         />
-        {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+        {errors.password && (
+          <p className="text-sm text-red-500">{errors.password}</p>
+        )}
       </div>
       <button
         type="submit"
-        className="w-full px-4 py-2 text-white font-bold rounded-lg bg-blue-600 hover:bg-blue-700 transition"
+        className="w-full rounded-lg bg-blue-600 px-4 py-2 font-bold text-white transition hover:bg-blue-700"
       >
         Login
       </button>
-      <p className="text-center text-gray-600 mt-4">
+      <p className="mt-4 text-center text-gray-600">
         Don’t have an account?{" "}
         <Link href="/signup" className="text-blue-500 hover:underline">
           Sign up

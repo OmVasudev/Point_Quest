@@ -438,12 +438,12 @@ const EventPage = () => {
 
   return (
     <div className="mx-auto mt-8 max-w-7xl px-4 pb-6">
-      <h1 className="mb-6 text-center text-3xl font-bold text-gray-800">
+      <h1 className="mb-6 text-center text-4xl font-semibold text-gray-800">
         Event Management
       </h1>
 
       <button
-        className="mb-6 rounded-lg bg-gradient-to-t from-blue-700 to-cyan-500 px-6 py-3 text-white"
+        className="mb-6 rounded-lg bg-gradient-to-t from-blue-700 to-cyan-500 px-5 py-2 text-white"
         onClick={() => handleOpenForm("add")}
       >
         Add New Event
@@ -453,8 +453,8 @@ const EventPage = () => {
 
       {formVisible && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="w-160 rounded-2xl bg-white p-8 shadow-lg">
-            <h2 className="mb-4 text-xl font-bold text-gray-800">
+          <div className="w-1/2 rounded-2xl bg-white p-8 shadow-lg">
+            <h2 className="mb-5 text-center font-primary text-2xl font-bold text-gray-800">
               {formType === "add" ? "Add New Event" : "Edit Event"}
             </h2>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -465,7 +465,7 @@ const EventPage = () => {
                 onChange={handleChange}
                 placeholder="Event Name"
                 required
-                className="w-full rounded-lg border px-4 py-2"
+                className="w-full rounded-lg border bg-white px-4 py-2 text-gray-700"
               />
 
               <textarea
@@ -474,7 +474,7 @@ const EventPage = () => {
                 onChange={handleChange}
                 placeholder="Event Description"
                 required
-                className="w-full rounded-lg border px-4 py-2"
+                className="w-full rounded-lg border bg-white px-4 py-2 text-gray-700"
               />
 
               <input
@@ -484,7 +484,7 @@ const EventPage = () => {
                 onChange={handleChange}
                 placeholder="Contact"
                 required
-                className="w-full rounded-lg border px-4 py-2"
+                className="w-full rounded-lg border bg-white px-4 py-2 text-gray-700"
               />
 
               <input
@@ -493,7 +493,7 @@ const EventPage = () => {
                 value={eventData.link}
                 onChange={handleChange}
                 placeholder="Event Link"
-                className="w-full rounded-lg border px-4 py-2"
+                className="w-full rounded-lg border bg-white px-4 py-2 text-gray-700"
               />
 
               <input
@@ -503,7 +503,7 @@ const EventPage = () => {
                 onChange={handleChange}
                 placeholder="Points"
                 required
-                className="w-full rounded-lg border px-4 py-2"
+                className="w-full rounded-lg border bg-white px-4 py-2 text-gray-700"
               />
 
               <select
@@ -511,7 +511,7 @@ const EventPage = () => {
                 value={eventData.clubId}
                 onChange={handleChange}
                 required
-                className="w-full rounded-lg border px-4 py-2"
+                className="w-full rounded-lg border bg-white px-4 py-2 text-gray-700"
               >
                 <option value="">Select Club</option>
                 {clubNames.map((club) => (
@@ -527,7 +527,7 @@ const EventPage = () => {
                 value={eventData.date}
                 onChange={handleChange}
                 placeholder="Event Date"
-                className="w-full rounded-lg border px-4 py-2"
+                className="w-full rounded-lg border bg-white px-4 py-2 text-gray-700"
               />
 
               <div className="my-4">
@@ -539,9 +539,9 @@ const EventPage = () => {
                     <button
                       type="button"
                       onClick={() => open()}
-                      className="w-full rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+                      className="w-full rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
                     >
-                      Upload Image
+                      Add Event Banner
                     </button>
                   )}
                 </CldUploadWidget>
@@ -564,41 +564,55 @@ const EventPage = () => {
         </div>
       )}
 
-      <div className="mt-8">
-        <h2 className="mb-4 text-xl font-bold">Event List</h2>
-        <table className="w-full table-auto border-collapse border border-gray-300">
+      <div className="mt-3">
+        <h2 className="mb-4 font-primary text-2xl font-bold text-black">
+          Event List
+        </h2>
+        <table className="w-full table-auto border-collapse border border-gray-300 text-gray-700 mb-8">
           <thead>
             <tr>
-              <th className="border border-gray-300 px-4 py-2">Name</th>
-              <th className="border border-gray-300 px-4 py-2">Club</th>
-              <th className="border border-gray-300 px-4 py-2">Contact</th>
-              <th className="border border-gray-300 px-4 py-2">Points</th>
-              <th className="border border-gray-300 px-4 py-2">Date</th>
-              <th className="border border-gray-300 px-4 py-2">Actions</th>
+              <th className="border border-gray-600 px-4 py-2 text-lg font-extrabold">
+                Name
+              </th>
+              <th className="border border-gray-600 px-4 py-2 text-lg font-extrabold">
+                Club
+              </th>
+              <th className="border border-gray-600 px-4 py-2 text-lg font-extrabold">
+                Contact
+              </th>
+              <th className="border border-gray-600 px-4 py-2 text-lg font-extrabold">
+                Points
+              </th>
+              <th className="border border-gray-600 px-4 py-2 text-lg font-extrabold">
+                Date
+              </th>
+              <th className="border border-gray-600 px-4 py-2 text-lg font-extrabold">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody>
             {events.map((event) => (
               <tr key={event.id}>
-                <td className="border border-gray-300 px-4 py-2">
+                <td className="border border-gray-600 px-4 py-2">
                   {event.name}
                 </td>
-                <td className="border border-gray-300 px-4 py-2">
+                <td className="border border-gray-600 px-4 py-2">
                   {clubNames.find((club) => club.id === event.clubId)?.name ||
                     "Unknown"}
                 </td>
-                <td className="border border-gray-300 px-4 py-2">
+                <td className="border border-gray-600 px-4 py-2">
                   {event.contact || "N/A"}
                 </td>
-                <td className="border border-gray-300 px-4 py-2">
+                <td className="border border-gray-600 px-4 py-2 text-center">
                   {event.points || "N/A"}
                 </td>
-                <td className="border border-gray-300 px-4 py-2">
+                <td className="border border-gray-600 px-4 py-2 text-center">
                   {event.date || "N/A"}
                 </td>
-                <td className="border border-gray-300 px-4 py-2">
+                <td className="border border-gray-600 px-4 py-2 text-center">
                   <button
-                    className="mr-2 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-700"
+                    className="rounded-lg bg-blue-500 px-4 py-1 text-white hover:bg-blue-700"
                     onClick={() => handleOpenForm("edit", event)}
                   >
                     Edit

@@ -146,7 +146,7 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+            className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-white text-gray-500 p-2 shadow"
           >
             <li>
               <Link href="/student/clubs">Clubs</Link>
@@ -177,7 +177,7 @@ const Navbar = () => {
           </span>
         </Link>
       </div>
-      <div className="navbar-center hidden lg:flex">
+      <div className="navbar-center hidden lg:flex text-gray-500">
         <ul className="menu menu-horizontal px-1 pt-4">
           <li>
             <Link href="/student/clubs">Clubs</Link>

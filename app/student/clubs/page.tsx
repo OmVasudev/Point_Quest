@@ -28,7 +28,7 @@ export default async function Page() {
   console.log(clubs);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen relative bg-white">
-      <h1 className="text-4xl text-black font-primary font-semibold py-4">
+      <h1 className="text-5xl text-black font-primary font-semibold py-4 m-6">
         Clubs
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-9">

@@ -59,7 +59,7 @@ const ContactForm = () => {
 
   return (
     <div className="bg-white">
-      <div className="mx-auto mb-10 max-w-4xl rounded-xl bg-gray-50 bg-gradient-to-r p-6 text-black shadow-lg">
+      <div className="mx-auto mt-10 mb-10 max-w-4xl rounded-xl bg-gray-50 bg-gradient-to-r p-6 text-black shadow-lg">
         <h2 className="mb-6 text-center text-3xl font-semibold">
           We Value Your Feedback
         </h2>
@@ -79,7 +79,7 @@ const ContactForm = () => {
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className={`rounded-md border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500`}
+              className={`bg-white rounded-md border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500`}
               placeholder="Enter your full name"
               required
             />
@@ -95,7 +95,7 @@ const ContactForm = () => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className={`rounded-md border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500`}
+              className={`bg-white rounded-md border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500`}
               placeholder="Enter your email address"
               required
             />
@@ -110,7 +110,7 @@ const ContactForm = () => {
               id="message"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className={`rounded-md border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500`}
+              className={`bg-white rounded-md border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500`}
               placeholder="Share your feedback or questions"
               rows={4}
               required

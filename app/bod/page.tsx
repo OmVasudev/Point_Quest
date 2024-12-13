@@ -2,8 +2,8 @@ import React from "react";
 
 const page = () => {
   return (
-    <div>
-      <h1>Board of Directors</h1>
+    <div className="flex h-screen items-center justify-center bg-gray-50">
+      <h1 className="text-6xl font-bold text-gray-800">Board of Directors</h1>
     </div>
   );
 };
