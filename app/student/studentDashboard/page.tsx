@@ -141,7 +141,7 @@ export default async function Page() {
                       </td>
                       <td className="px-4 py-3 text-black">
                         <a
-                          href={item.event.link}
+                          href={item.event.driveLink}
                           className="rounded-2xl bg-blue-500 px-3 py-1 text-white transition hover:bg-blue-800"
                         >
                           Download
