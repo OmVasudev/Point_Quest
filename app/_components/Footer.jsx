@@ -35,7 +35,7 @@ const Footer = () => {
         </nav>
       </footer>
       <div className="bg-blue-950 py-4 text-center">
-        <p className="text-sm">
+        <p className="text-sm text-white">
           &copy; {new Date().getFullYear()} Point Quest. All Rights Reserved.
         </p>
       </div>
