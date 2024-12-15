@@ -61,7 +61,7 @@ export async function getEvents() {
   const { data, error } = await supabase
     .from("Event")
     .select(
-      "id,name,clubId,description,contact,link,points,image,isCompleted,date",
+      "id,name,clubId,description,contact,link,driveLink,points,image,isCompleted,date",
     )
     .order("name");
 
@@ -160,7 +160,7 @@ export async function getParticipatedAdmin(adminId: number) {
 export async function getParticipatedEvent(eventId: number) {
   const { data, error } = await supabase
     .from("Event")
-    .select("name, date, points, link, clubId")
+    .select("name, date, points, driveLink, clubId")
     .eq("id", eventId)
     .single();
 
@@ -346,6 +346,7 @@ export async function addEvent(eventData: {
   description: string;
   contact: string;
   link: string;
+  driveLink: string;
   points: number;
   image: string;
   clubId: number;
@@ -370,6 +371,7 @@ export async function updateEvent(
     description?: string;
     contact?: string;
     link?: string;
+    driveLink?: string;
     points?: number;
     image?: string;
     clubId?: number;
